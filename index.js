@@ -45,8 +45,7 @@ io.on('connection', function(socket) {
     cnts += 1
     
        dirs[socket.id] = {
-      x: 0,
-      y: {x: 0, y: 0, z: 0},
+      disp: {x: 0, y: 0, z: 0},
       color: {r: Math.random()*1, g: Math.random()*1, b: Math.random()*1},
       rnd: cnts,
       spawn: true,
@@ -71,7 +70,7 @@ io.on('connection', function(socket) {
   });
    socket.on('shift', function(data) {
       var dir = dirs[socket.id] || {};
-     dir.y = data;
+     dir.disp = data;
    })
   socket.on('movement', function(data) {
     var player = players[socket.id] || {};
