@@ -132,8 +132,8 @@ document.head.appendChild(s);
            light.specular = BABYLON.Color3.Black();
            
         //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
-           var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
-    terrainMaterial.diffuseColor = new BABYLON.Color3(0.15, 0.9, 0.25);
+      var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
+    terrainMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/Groundplants0165_3_download600.jpg", scene);
     //terrainMaterial.wireframe = true;
 
     var terrainCreated = false;
