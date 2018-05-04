@@ -102,8 +102,11 @@ document.addEventListener('keyup', function(event) {
   }
 });
         
-        //////////////********************DRAW THE PLAYERS********************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
+        //////////////********************TERRAIN SCRIPT********************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+var url = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
+var s = document.createElement("script");
+s.src = url;
+document.head.appendChild(s);
         
 
         //////***********BABYLONJS CODE************|||||||||||||||||
@@ -126,18 +129,51 @@ document.addEventListener('keyup', function(event) {
         
             // Default intensity is 1. Let's dim the light a small amount
             light.intensity = 0.7;
-        
-           socket.emit('new player');
+        //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
+           var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
+    terrainMaterial.diffuseColor = new BABYLON.Color3(0.15, 0.9, 0.25);
+    //terrainMaterial.wireframe = true;
+
+    var terrainCreated = false;
+    var terrain;
+
+    s.onload = function() {
+        var mapSubX = 100;
+        var mapSubZ = 100;
+        var terrainSub = 50;
+
+        // map creation
+        var mapData = new Float32Array(mapSubX * mapSubZ * 3);   
+        for (var l = 0; l < mapSubZ; l++) {           
+            for (var w = 0; w < mapSubX; w++) {                
+                mapData[3 *(l * mapSubX + w)] = (w - mapSubX * 0.5) * 2.0;
+                mapData[3 * (l * mapSubX + w) + 1] = w / (l +1) * Math.sin(l / 2) * Math.cos(w / 2) * 2.0;
+                mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 2.0;
+           }            
+        }
+
+        // terrain creation
+        var params = {
+            mapData: mapData,
+            mapSubX: mapSubX,
+            mapSubZ: mapSubZ,
+            terrainSub: terrainSub
+        };
+        terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
+        terrain.mesh.material = terrainMaterial;
+        terrainCreated = true;
+    };
+           
+           //socket.io events---------------------------------------><--------------------------------------
+ socket.emit('new player');
 setInterval(function() {
   socket.emit('movement', movement);
 }, 1000 / 60);
 
-           var value = 0;
-           socket.on('online', function(data) {
-             
-             console.log(data);
-      
-});
+
+      socket.on('online', function(data) {
+      console.log(data);
+     });
            
            var shft = new BABYLON.Vector3.Zero();
            document.addEventListener('keydown', function(event) {
@@ -167,7 +203,8 @@ setInterval(function() {
              
            var cnt = 0
            var pl = []
-    
+     var playerElevation = 2.0;
+    var playerAltitude = 0.0;
               //direction
               socket.on('directions', function(dirs) {
               cnt += 1
@@ -184,6 +221,14 @@ setInterval(function() {
               newplayers[dir.rnd].material = mat;
              // newplayers[dir.rnd].position.y = dir.y;
               newplayers[dir.rnd].position.copyFrom(dir.y)
+                //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
+                scene.registerBeforeRender(function() {
+        if (terrainCreated) {
+            playerAltitude = terrain.getHeightFromMap(sphere.position.x, sphere.position.z) + playerElevation;
+            newplayers[dir.rnd].position.y = playerAltitude;
+        }
+    });
+                
               }else{
                console.log("Max. player reached, join another room!!"); 
               }
