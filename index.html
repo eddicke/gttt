@@ -226,15 +226,11 @@ setInterval(function() {
                var mat = new BABYLON.StandardMaterial("texture2", scene);
               mat.diffuseColor = new BABYLON.Color3(dir.color.r, dir.color.b, dir.color.g);
               newplayers[dir.rnd].material = mat;
-              //  newplayers[dir.rnd].position.copyFrom(dir.y)
-              
-                  console.log(dir.y)
-                newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05);
+                newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
                 scene.registerBeforeRender(function() {
-               //   newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05);
                   
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
