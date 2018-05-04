@@ -224,7 +224,7 @@ setInterval(function() {
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
                 scene.registerBeforeRender(function() {
         if (terrainCreated) {
-            playerAltitude = terrain.getHeightFromMap(sphere.position.x, sphere.position.z) + playerElevation;
+            playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
         }
     });
