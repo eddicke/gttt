@@ -229,11 +229,13 @@ setInterval(function() {
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
                 scene.registerBeforeRender(function() {
+                  newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05);
+                  
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
    
-          newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05)
+          
           
         }
     });
