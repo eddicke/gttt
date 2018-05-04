@@ -129,6 +129,8 @@ document.head.appendChild(s);
         
             // Default intensity is 1. Let's dim the light a small amount
             light.intensity = 0.7;
+           light.specular = BABYLON.Color3.Black();
+           
         //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
            var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
     terrainMaterial.diffuseColor = new BABYLON.Color3(0.15, 0.9, 0.25);
@@ -147,7 +149,7 @@ document.head.appendChild(s);
         for (var l = 0; l < mapSubZ; l++) {           
             for (var w = 0; w < mapSubX; w++) {                
                 mapData[3 *(l * mapSubX + w)] = (w - mapSubX * 0.5) * 2.0;
-                mapData[3 * (l * mapSubX + w) + 1] = w / (l +1) * Math.sin(l / 2) * Math.cos(w / 2) * 2.0;
+                mapData[3 * (l * mapSubX + w) + 1] = w / (l +1) * Math.sin(l / 2) * Math.cos(w / 2) * 4.0;
                 mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 2.0;
            }            
         }
@@ -160,7 +162,7 @@ document.head.appendChild(s);
             terrainSub: terrainSub
         };
         terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
-      //  terrain.mesh.material = terrainMaterial;
+        terrain.mesh.material = terrainMaterial;
         terrainCreated = true;
     };
            
