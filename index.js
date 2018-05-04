@@ -53,7 +53,7 @@ io.on('connection', function(socket) {
       move: false
     }
     //limit the number of players available
-    if(cnts > 3){
+    if(cnts == 20){
       dirs[socket.id].spawn = false;
     }
     
