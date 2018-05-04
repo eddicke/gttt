@@ -49,10 +49,13 @@ io.on('connection', function(socket) {
       y: 0,
       color: {r: Math.random()*1, g: Math.random()*1, b: Math.random()*1},
       rnd: cnts,
+      spawn: true,
       move: false
     }
-    
-    
+    //limit the number of players available
+    if(cnts > 3){
+      dirs[socket.id].spawn = false;
+    }
     
     
     players[socket.id] = {
