@@ -175,6 +175,7 @@ setInterval(function() {
             for (var id in dirs) {
             var dir = dirs[id];
               
+              if(dir.spawn){
               console.log("this is random"+dir.rnd);
               newplayers[dir.rnd].setEnabled(true);
               
@@ -183,7 +184,9 @@ setInterval(function() {
               newplayers[dir.rnd].material = mat;
              // newplayers[dir.rnd].position.y = dir.y;
               newplayers[dir.rnd].position.copyFrom(dir.y)
-              
+              }else{
+               console.log("Max. player reached, join another room!!"); 
+              }
             }
             });
         
