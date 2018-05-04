@@ -186,15 +186,20 @@ setInterval(function() {
            })
            
            //pointer event
+           
            scene.onPointerDown = function(ev, poke){
              
              if(poke.hit){
-               socket.emit('shift', poke.pickedPoint);
+               shft.copyFrom(poke.pickedPoint)
+              // socket.emit('shift', poke.pickedPoint);
              }
              
            }
            
-          
+         setInterval(function() {
+  socket.emit('shift', shft);
+}, 1000 / 60);
+ 
            var newplayers = []
            for(var i = 0; i<20; i++){
              var player = new BABYLON.Mesh.CreateBox("sphere1", 2, scene);
@@ -224,12 +229,12 @@ setInterval(function() {
               //  newplayers[dir.rnd].position.copyFrom(dir.y)
               
                   console.log(dir.y)
-               
+                newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05);
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
                 scene.registerBeforeRender(function() {
-                  newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05);
+               //   newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.y, .05);
                   
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
