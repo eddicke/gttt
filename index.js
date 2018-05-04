@@ -46,7 +46,7 @@ io.on('connection', function(socket) {
     
        dirs[socket.id] = {
       x: 0,
-      y: 0,
+      y: {x: 0, y: 0, z: 0},
       color: {r: Math.random()*1, g: Math.random()*1, b: Math.random()*1},
       rnd: cnts,
       spawn: true,
