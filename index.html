@@ -245,7 +245,7 @@ setInterval(function() {
             });
         
             scene.registerBeforeRender(function() {
-		    if(original.length <= 1){
+		    if(original.length != null){
 		console.log("original player is "+original[original.length-1]) 
 		    }
 	    })
