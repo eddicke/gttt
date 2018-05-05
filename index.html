@@ -197,6 +197,7 @@ setInterval(function() {
              
            var cnt = 0
            var pl = []
+	   var original = []
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
               //direction
@@ -207,6 +208,7 @@ setInterval(function() {
             var dir = dirs[id];
               
               if(dir.spawn){
+		      original.push(dir.rnd)
               console.log("this is random"+dir.rnd);
               newplayers[dir.rnd].setEnabled(true);
               
@@ -217,8 +219,10 @@ setInterval(function() {
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
 		      
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-            camera.target.x = dir.disp.x
-            camera.target.z = dir.disp.z
+		      if(original[0] == dir.rnd){
+            camera.target.x = newplayers[dir.rnd].position.x
+            camera.target.z = newplayers[dir.rnd].position.z
+		      }
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
