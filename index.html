@@ -196,8 +196,25 @@
                 sphere.visibility = 0
 
                 //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
-                var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
-                terrainMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/Groundplants0165_3_download600.jpg", scene);
+                //TERRAIN MATERIAL-------------------------------------------------------><----------------------------
+    // Create terrain material
+	var terrainMaterial = new BABYLON.TerrainMaterial("terrainMaterial", scene);
+    terrainMaterial.specularColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+    terrainMaterial.specularPower = 64;
+    terrainMaterial.mixTexture = new BABYLON.Texture("textures/mixMap.png", scene);
+    terrainMaterial.diffuseTexture1 = new BABYLON.Texture("https://rawcdn.githack.com/waverider404/game-assets/master/kryptonite-crystal-texture-seamless-free-thumb40.jpg", scene);
+    terrainMaterial.diffuseTexture2 = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/rock.png", scene);
+    terrainMaterial.diffuseTexture3 = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/grass.png", scene);
+    
+	// Bump textures according to the previously set diffuse textures
+    terrainMaterial.bumpTexture1 = new BABYLON.Texture("https://rawcdn.githack.com/waverider404/game-assets/master/8158-normal.jpg", scene);
+    terrainMaterial.bumpTexture2 = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/rockn.png", scene);
+    terrainMaterial.bumpTexture3 = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/grassn.png", scene);
+   
+    // Rescale textures according to the terrain
+    terrainMaterial.diffuseTexture1.uScale = terrainMaterial.diffuseTexture1.vScale = 10;
+    terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
+    terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
 
                //terrain
 
