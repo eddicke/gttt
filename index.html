@@ -215,7 +215,7 @@ for(var i = 0; i<20; i++){
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
 		
-		
+		var nerd = []
               //direction
               socket.on('directions', function(dirs) {
              
@@ -237,14 +237,9 @@ for(var i = 0; i<20; i++){
                 newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
 		      
-		      
-		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-		cameras[dir.rnd].setEnabled(true)
-		scene.activeCamera = cameras[dir.rnd]
-		
-		      cameras[dir.rnd].target.copyFrom(dir.cam);
-		
-		      console.log(scene.activeCamera.name)
+		      nerd.push(dir.rnd)
+		      console.log(nerd)
+		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
