@@ -115,14 +115,9 @@ document.head.appendChild(s);
             // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
         
-            // This creates and positions a free camera (non-mesh)
-            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-        
-            // This targets the camera to scene origin
-            camera.setTarget(BABYLON.Vector3.Zero());
-        
-            // This attaches the camera to the canvas
-            camera.attachControl(canvas, true);
+            var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
+	          camera.attachControl(canvas, true);
+            camera.setPosition(new BABYLON.Vector3(0, 10, -20));
         
             // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -228,7 +223,9 @@ setInterval(function() {
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
-   
+            //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
+            camera.target.x = newplayers[dir.rnd].position.x
+            camera.target.z = newplayers[dir.rnd].position.z
           
           
         }
