@@ -183,6 +183,7 @@
                 skyMaterial.useSunPosition = false; // Do not set sun position from azimuth and inclination
                 skyMaterial.sunPosition = new BABYLON.Vector3(200, 10, 0);
                 skyMaterial.rayleigh = 2; // Represents the sky appearance (globally)
+                skyMaterial.isPickable = false
                 // The amount of haze particles following the Mie scattering theory
                 skyMaterial.mieDirectionalG = 0.98;
 
