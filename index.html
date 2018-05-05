@@ -195,7 +195,7 @@
 
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
-                sphere.visibility = 0
+                
 
                 //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
                 //TERRAIN MATERIAL-------------------------------------------------------><----------------------------
@@ -395,6 +395,7 @@
                     }
 
                 }
+		
                 //LOCOMOTION------------------------><-----------------------------------------------------------
                 var speed = 0
                 var rotY = 0
@@ -467,10 +468,9 @@
                             newplayers[dir.rnd].material = mat;
                            // newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
                           //  newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .008);
-                               newplayers[dir.rnd].rotation.y = dir.rotY
-                              newplayers[dir.rnd].locallyTranslate(new BABYLON.Vector3(0, 0, dir.vel))
-		              socket.emit("getPosition", newplayers[dir.rnd].getAbsolutePosition())
-				console.log("playersssssssssssss "+dir.lastpos.z);
+                              newplayers[dir.rnd].rotation.y = dir.rotY
+                              //newplayers[dir.rnd].locallyTranslate(new BABYLON.Vector3(0, 0, dir.vel))
+		            
 				newplayers[dir.rnd].position.copyFrom(dir.lastpos)
                             //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
                             //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
@@ -493,10 +493,13 @@
                 });
                 //SMOOTH CAMERA FOLLOW--------><-----------------------------------
                 scene.registerBeforeRender(function() {
-                    sphere.position = BABYLON.Vector3.Lerp(sphere.position, shft, .02)
-                    camera.target.x = sphere.position.x
-                    camera.target.z = sphere.position.z
+                  sphere.rotation.y = rotY
+                  sphere.locallyTranslate(new BABYLON.Vector3(0, 0, speed))
                 })
+		    setInterval(function(){			    
+		     socket.emit("getPosition", sphere.getAbsolutePosition())
+		    }, 1000/60);
+		    
                 // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
                 var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
