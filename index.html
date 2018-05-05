@@ -236,9 +236,7 @@ for(var i = 0; i<20; i++){
               newplayers[dir.rnd].material = mat;
                 newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
-		      
-		      nerd.push(dir.rnd)
-		      console.log(nerd)
+		
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
@@ -260,8 +258,11 @@ for(var i = 0; i<20; i++){
               }
             }
             });
-        
-     
+        //SMOOTH CAMERA FOLLOW--------><-----------------------------------
+     scene.registerBeforeRender(function() {
+	     camera.target.x = shft.x
+        camera.target.z = shft.z
+     })
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
         
