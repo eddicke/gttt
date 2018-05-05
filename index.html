@@ -446,7 +446,7 @@
                             mat.diffuseColor = new BABYLON.Color3(dir.color.r, dir.color.b, dir.color.g);
                             newplayers[dir.rnd].material = mat;
                             newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
-                            newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
+                            newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .02);
 
                             //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
                             //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
@@ -469,7 +469,7 @@
                 });
                 //SMOOTH CAMERA FOLLOW--------><-----------------------------------
                 scene.registerBeforeRender(function() {
-                    sphere.position = BABYLON.Vector3.Lerp(sphere.position, shft, .05)
+                    sphere.position = BABYLON.Vector3.Lerp(sphere.position, shft, .02)
                     camera.target.x = sphere.position.x
                     camera.target.z = sphere.position.z
                 })
