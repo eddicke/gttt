@@ -197,7 +197,7 @@ setInterval(function() {
              //CREATE MULTIPLE CAMERAS FOR PLAYERS-------------------><--------------------------
 		     var cameras = []
 for(var i = 0; i<20; i++){
-    var cam = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
+    var cam = new BABYLON.ArcRotateCamera("newCamera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
     cam.attachControl(canvas, true);
     cam.setPosition(new BABYLON.Vector3(0, 10, -20));
     scene.activeCameras.pop(cam)
@@ -239,6 +239,7 @@ for(var i = 0; i<20; i++){
 		      if(cnt == 1){
 		scene.activeCameras.push(cameras[dir.rnd])
 		      }
+		      console.log(scene.activeCamera.name)
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
