@@ -194,17 +194,26 @@ setInterval(function() {
              newplayers.push(player)
            }
            
-             
+             //CREATE MULTIPLE CAMERAS FOR PLAYERS-------------------><--------------------------
+		     var cameras = []
+for(var i = 0; i<20; i++){
+    var cam = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
+    cam.attachControl(canvas, true);
+    cam.setPosition(new BABYLON.Vector3(0, 10, -20));
+    scene.activeCameras.pop(cam)
+    cameras.push(cam)
+}
+
+
+		 
+		 //CAMERAS------------------------------><-------------------------------------------------------
            var cnt = 0
            var pl = []
 	   var original = []
 	   var select = 0
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
-		 
-		 scene.registerBeforeRender(function() {
-			select += 1; 
-		 })
+		
               //direction
               socket.on('directions', function(dirs) {
               cnt += 1
@@ -227,7 +236,7 @@ setInterval(function() {
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
 		      
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-		  
+		  scene.activeCameras.push(cameras[dir.rnd])
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
@@ -237,12 +246,7 @@ setInterval(function() {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
 		
-         if(select > 1){
-
-		 console.log(dir.rnd+ " selected")
-           camera.target.x = newplayers[dir.rnd].position.x
-           camera.target.z = newplayers[dir.rnd].position.z
-	 }
+       
         }
     });
                 
@@ -252,13 +256,7 @@ setInterval(function() {
             }
             });
         
-            scene.registerBeforeRender(function() {
-		  /*  if(original.length != null){
-		 camera.target.x = newplayers[original.length-1].position.x
-        camera.target.z = newplayers[original.length-1].position.z
-		console.log("original player is "+original[original.length-1]) 
-		    }*/
-	    })
+     
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
         
