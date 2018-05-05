@@ -126,6 +126,9 @@ document.head.appendChild(s);
             light.intensity = 0.7;
            light.specular = BABYLON.Color3.Black();
            
+		 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
+    sphere.visibility = 0
+		 
         //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
       var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
     terrainMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/Groundplants0165_3_download600.jpg", scene);
@@ -260,8 +263,9 @@ for(var i = 0; i<20; i++){
             });
         //SMOOTH CAMERA FOLLOW--------><-----------------------------------
      scene.registerBeforeRender(function() {
-	     camera.target.x = shft.x
-        camera.target.z = shft.z
+	      sphere.position =  BABYLON.Vector3.Lerp(sphere.position, shft, .05)
+        camera.target.x = sphere.position.x
+        camera.target.z = sphere.position.z
      })
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
