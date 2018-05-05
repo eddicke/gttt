@@ -245,8 +245,8 @@ setInterval(function() {
             });
         
             scene.registerBeforeRender(function() {
-		 camera.target.x = original[original.length-1].position.x
-        camera.target.z = original[original.length-1].position.z
+		 camera.target.x = newplayers[original.length-1].position.x
+        camera.target.z = newplayers[original.length-1].position.z
 		console.log("original player is "+original[original.length-1]) 
 		   
 	    })
