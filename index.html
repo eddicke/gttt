@@ -200,7 +200,7 @@ for(var i = 0; i<20; i++){
     var cam = new BABYLON.ArcRotateCamera("newCamera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
     cam.attachControl(canvas, true);
     cam.setPosition(new BABYLON.Vector3(0, 10, -20));
-    scene.activeCameras.pop(cam)
+    cam.setEnabled(false)
     cameras.push(cam)
 }
 
@@ -214,13 +214,11 @@ for(var i = 0; i<20; i++){
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
 		
-		 scene.registerBeforeRender(function() {
-			 cnt += 1 
-		 })
+		
               //direction
               socket.on('directions', function(dirs) {
              
-            
+            cnt += 1
             for (var id in dirs) {
             var dir = dirs[id];
               
@@ -239,9 +237,8 @@ for(var i = 0; i<20; i++){
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
 		      
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-		      if(cnt == 1){
-		scene.activeCameras.push(cameras[dir.rnd])
-		      }
+		cameras[dir.rnd].setEnabled(true)
+		scene.activeCamera = cameras[1]
 		      console.log(scene.activeCamera.name)
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
@@ -252,7 +249,7 @@ for(var i = 0; i<20; i++){
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
 		
-       
+
         }
     });
                 
