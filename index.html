@@ -469,6 +469,9 @@
                           //  newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .008);
                                newplayers[dir.rnd].rotation.y = dir.rotY
                                newplayers[dir.rnd].locallyTranslate(new BABYLON.Vector3(0, 0, dir.vel))
+				
+				socket.emit("getPosition", newplayers[dir.rnd].getAbsolutePosition());
+				console.log("playerssssssssssssssss position "+dir.lastpos)
                             //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
                             //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
 
