@@ -245,11 +245,11 @@ setInterval(function() {
             });
         
             scene.registerBeforeRender(function() {
-		    if(original.length != null){
+		  /*  if(original.length != null){
 		 camera.target.x = newplayers[original.length-1].position.x
         camera.target.z = newplayers[original.length-1].position.z
 		console.log("original player is "+original[original.length-1]) 
-		    }
+		    }*/
 	    })
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
