@@ -204,7 +204,7 @@ setInterval(function() {
               //direction
               socket.on('directions', function(dirs) {
               cnt += 1
-             select += 1
+            
             for (var id in dirs) {
             var dir = dirs[id];
               
@@ -232,7 +232,7 @@ setInterval(function() {
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
-		
+		 select += 1
          if(select == 1){
 		 select = 1
 		 console.log(select+ " selected")
