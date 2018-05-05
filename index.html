@@ -1,307 +1,345 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title>Socket.IO chat</title>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      #messages { margin-bottom: 40px }
-    </style>
-  </head>
-  <body>
-    <style>
-            html, body {
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            #renderCanvas {
-                width: 100%;
-                height: 100%;
-                touch-action: none;
-            }
-        </style>
+        body {
+            font: 13px Helvetica, Arial;
+        }
+
+        form {
+            background: #000;
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+
+        form button {
+            width: 9%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #messages li {
+            padding: 5px 10px;
+        }
+
+        #messages li:nth-child(odd) {
+            background: #eee;
+        }
+
+        #messages {
+            margin-bottom: 40px
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
     <title>A Multiplayer Game</title>
-     <canvas id="renderCanvas"></canvas>
+    <canvas id="renderCanvas"></canvas>
     <ul id="messages"></ul>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+        <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-     <!-- Babylon.js -->
-        <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
-        <script src="https://preview.babylonjs.com/cannon.js"></script>
-        <script src="https://preview.babylonjs.com/Oimo.js"></script>
-        <script src="https://preview.babylonjs.com/earcut.min.js"></script>
-        <script src="https://preview.babylonjs.com/babylon.js"></script>
-        <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
-        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
-        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
-        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <!-- Babylon.js -->
+    <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/Oimo.js"></script>
+    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
 
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    
+
     <script>
-      var canvas = document.getElementById("renderCanvas");
+        var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
 
-      $(function () {
-        var socket = io();
-      var user = 0
-        
-        //listen to keyboard event
-        var movement = {
-  up: false,
-  down: false,
-  left: false,
-  right: false
-}
-document.addEventListener('keydown', function(event) {
-  switch (event.keyCode) {
-    case 65: // A
-      movement.left = true;
-      break;
-    case 87: // W
-      movement.up = true;
-      break;
-    case 68: // D
-      movement.right = true;
-      break;
-    case 83: // S
-      movement.down = true;
-      break;
-  }
-});
-document.addEventListener('keyup', function(event) {
-  switch (event.keyCode) {
-    case 65: // A
-      movement.left = false;
-      break;
-    case 87: // W
-      movement.up = false;
-      break;
-    case 68: // D
-      movement.right = false;
-      break;
-    case 83: // S
-      movement.down = false;
-      break;
-  }
-});
-        
-        //////////////********************TERRAIN SCRIPT********************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-var url = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
-var s = document.createElement("script");
-s.src = url;
-document.head.appendChild(s);
-        
+        $(function() {
+            var socket = io();
+            var user = 0
 
-        //////***********BABYLONJS CODE************|||||||||||||||||
-         var createScene = function () {
-        
-            // This creates a basic Babylon Scene object (non-mesh)
-            var scene = new BABYLON.Scene(engine);
-        
-            var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
-	          camera.attachControl(canvas, true);
-            camera.setPosition(new BABYLON.Vector3(0, 10, -20));
-        
-            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-        
-            // Default intensity is 1. Let's dim the light a small amount
-            light.intensity = 0.7;
-           light.specular = BABYLON.Color3.Black();
-           
-		 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
-    sphere.visibility = 0
-		 
-        //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
-      var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
-    terrainMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/Groundplants0165_3_download600.jpg", scene);
-    //terrainMaterial.wireframe = true;
-
-    var terrainCreated = false;
-    var terrain;
-
-    s.onload = function() {
-        var mapSubX = 100;
-        var mapSubZ = 100;
-        var terrainSub = 50;
-
-        // map creation
-        var mapData = new Float32Array(mapSubX * mapSubZ * 3);   
-        for (var l = 0; l < mapSubZ; l++) {           
-            for (var w = 0; w < mapSubX; w++) {                
-                mapData[3 *(l * mapSubX + w)] = (w - mapSubX * 0.5) * 2.0;
-                mapData[3 * (l * mapSubX + w) + 1] = w / (l +1) * Math.sin(l / 2) * Math.cos(w / 2) * 4.0;
-                mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 2.0;
-           }            
-        }
-
-        // terrain creation
-        var params = {
-            mapData: mapData,
-            mapSubX: mapSubX,
-            mapSubZ: mapSubZ,
-            terrainSub: terrainSub
-        };
-        terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
-        terrain.mesh.material = terrainMaterial;
-        terrainCreated = true;
-    };
-           
-           //socket.io events---------------------------------------><--------------------------------------
- socket.emit('new player');
-setInterval(function() {
-  socket.emit('movement', movement);
-}, 1000 / 60);
-
-
-      socket.on('online', function(data) {
-      console.log(data);
-     });
-           
-           var shft = new BABYLON.Vector3.Zero();
-           //pointer event
-           
-           scene.onPointerDown = function(ev, poke){
-             
-             if(poke.hit){
-               shft.copyFrom(poke.pickedPoint)
-             }
-             
-           }
-           
-         setInterval(function() {
-		 socket.emit("camera-follow", shft);
-          socket.emit('shift', shft);
-          }, 1000 / 60);
- 
-           var newplayers = []
-           for(var i = 0; i<20; i++){
-             var player = new BABYLON.Mesh.CreateBox("sphere1", 2, scene);
-             player.setEnabled(false)
-             newplayers.push(player)
-           }
-           
-             //CREATE MULTIPLE CAMERAS FOR PLAYERS-------------------><--------------------------
-		     var cameras = []
-for(var i = 0; i<20; i++){
-    var cam = new BABYLON.ArcRotateCamera("newCamera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
-    cam.attachControl(canvas, true);
-    cam.setPosition(new BABYLON.Vector3(0, 10, -20));
-    cam.setEnabled(false)
-    cameras.push(cam)
-}
-
-
-		 
-		 //CAMERAS------------------------------><-------------------------------------------------------
-           var cnt = 0
-           var pl = []
-	   var original = []
-	   var select = 0
-     var playerElevation = 2.0;
-    var playerAltitude = 0.0;
-		
-		var nerd = []
-              //direction
-              socket.on('directions', function(dirs) {
-             
-            cnt += 1
-            for (var id in dirs) {
-            var dir = dirs[id];
-              
-              if(dir.spawn){
-	
-		      original.push(dir.rnd)
-		      
-		      
-              console.log("this is random"+dir.rnd);
-              newplayers[dir.rnd].setEnabled(true);
-              
-               var mat = new BABYLON.StandardMaterial("texture2", scene);
-              mat.diffuseColor = new BABYLON.Color3(dir.color.r, dir.color.b, dir.color.g);
-              newplayers[dir.rnd].material = mat;
-                newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
-                newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
-		
-		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
-     //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
-              
-                //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
-                scene.registerBeforeRender(function() {
-                  
-	
-			
-        if (terrainCreated) {
-            playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
-            newplayers[dir.rnd].position.y = playerAltitude;
-		
-
-        }
-    });
-                
-              }else{
-               console.log("Max. player reached, join another room!!"); 
-              }
+            //listen to keyboard event
+            var movement = {
+                up: false,
+                down: false,
+                left: false,
+                right: false
             }
+            document.addEventListener('keydown', function(event) {
+                switch (event.keyCode) {
+                    case 65: // A
+                        movement.left = true;
+                        break;
+                    case 87: // W
+                        movement.up = true;
+                        break;
+                    case 68: // D
+                        movement.right = true;
+                        break;
+                    case 83: // S
+                        movement.down = true;
+                        break;
+                }
             });
-        //SMOOTH CAMERA FOLLOW--------><-----------------------------------
-     scene.registerBeforeRender(function() {
-	      sphere.position =  BABYLON.Vector3.Lerp(sphere.position, shft, .05)
-        camera.target.x = sphere.position.x
-        camera.target.z = sphere.position.z
-     })
-            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-            var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
-        
-            return scene;
-        
-        };
-        
-        var scene = createScene()
+            document.addEventListener('keyup', function(event) {
+                switch (event.keyCode) {
+                    case 65: // A
+                        movement.left = false;
+                        break;
+                    case 87: // W
+                        movement.up = false;
+                        break;
+                    case 68: // D
+                        movement.right = false;
+                        break;
+                    case 83: // S
+                        movement.down = false;
+                        break;
+                }
+            });
 
-        engine.runRenderLoop(function () {
-            if (scene) {
-                scene.render();
-            }
-        });
+            //////////////********************TERRAIN SCRIPT********************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            var url = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
+            var s = document.createElement("script");
+            s.src = url;
+            document.head.appendChild(s);
 
-        // Resize
-        window.addEventListener("resize", function () {
-            engine.resize();
+
+            //////***********BABYLONJS CODE************|||||||||||||||||
+            var createScene = function() {
+
+                // This creates a basic Babylon Scene object (non-mesh)
+                var scene = new BABYLON.Scene(engine);
+
+                var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
+                camera.attachControl(canvas, true);
+                camera.setPosition(new BABYLON.Vector3(0, 10, -20));
+
+                // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+                var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+                // Default intensity is 1. Let's dim the light a small amount
+                light.intensity = 0.7;
+                light.specular = BABYLON.Color3.Black();
+
+                var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
+                sphere.visibility = 0
+
+                //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
+                var terrainMaterial = new BABYLON.StandardMaterial("materialGround", scene);
+                terrainMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/Groundplants0165_3_download600.jpg", scene);
+
+                var terrainCreated = false;
+                var terrain;
+
+                s.onload = function() {
+                    var mapSubX = 100;
+                    var mapSubZ = 100;
+                    var terrainSub = 50;
+
+                    // map creation
+                    var mapData = new Float32Array(mapSubX * mapSubZ * 3);
+                    for (var l = 0; l < mapSubZ; l++) {
+                        for (var w = 0; w < mapSubX; w++) {
+                            mapData[3 * (l * mapSubX + w)] = (w - mapSubX * 0.5) * 2.0;
+                            mapData[3 * (l * mapSubX + w) + 1] = w / (l + 1) * Math.sin(l / 2) * Math.cos(w / 2) * 4.0;
+                            mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 2.0;
+                        }
+                    }
+
+                    // terrain creation
+                    var params = {
+                        mapData: mapData,
+                        mapSubX: mapSubX,
+                        mapSubZ: mapSubZ,
+                        terrainSub: terrainSub
+                    };
+                    terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
+                    terrain.mesh.material = terrainMaterial;
+                    terrainCreated = true;
+                };
+
+                //socket.io events---------------------------------------><--------------------------------------
+                socket.emit('new player');
+                setInterval(function() {
+                    socket.emit('movement', movement);
+                }, 1000 / 60);
+
+
+                socket.on('online', function(data) {
+                    console.log(data);
+                });
+
+                var shft = new BABYLON.Vector3.Zero();
+                //pointer event
+
+                scene.onPointerDown = function(ev, poke) {
+
+                    if (poke.hit) {
+                        shft.copyFrom(poke.pickedPoint)
+                    }
+
+                }
+		//Array of limited players----------------><-------------------------------------------------------------------
+                setInterval(function() {
+                    socket.emit("camera-follow", shft);
+                    socket.emit('shift', shft);
+                }, 1000 / 60);
+
+                var newplayers = []
+                for (var i = 0; i < 20; i++) {
+                    var player = new BABYLON.Mesh.CreateBox("sphere1", 2, scene);
+                    player.setEnabled(false)
+                    newplayers.push(player)
+                }
+
+                //CREATE MULTIPLE CAMERAS FOR PLAYERS-------------------><--------------------------
+                var cameras = []
+                for (var i = 0; i < 20; i++) {
+                    var cam = new BABYLON.ArcRotateCamera("newCamera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
+                    cam.attachControl(canvas, true);
+                    cam.setPosition(new BABYLON.Vector3(0, 10, -20));
+                    cam.setEnabled(false)
+                    cameras.push(cam)
+                }
+
+
+
+                //CAMERAS------------------------------><-------------------------------------------------------
+                var cnt = 0
+                var pl = []
+                var original = []
+                var select = 0
+                var playerElevation = 2.0;
+                var playerAltitude = 0.0;
+
+                var nerd = []
+                //direction
+                socket.on('directions', function(dirs) {
+
+                    cnt += 1
+                    for (var id in dirs) {
+                        var dir = dirs[id];
+
+                        if (dir.spawn) {
+
+                            original.push(dir.rnd)
+                            console.log("this is random" + dir.rnd);
+                            newplayers[dir.rnd].setEnabled(true);
+
+                            var mat = new BABYLON.StandardMaterial("texture2", scene);
+                            mat.diffuseColor = new BABYLON.Color3(dir.color.r, dir.color.b, dir.color.g);
+                            newplayers[dir.rnd].material = mat;
+                            newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
+                            newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
+
+                            //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
+                            //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
+
+                            //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
+                            scene.registerBeforeRender(function() {
+                                if (terrainCreated) {
+                                    playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
+                                    newplayers[dir.rnd].position.y = playerAltitude;
+
+
+                                }
+                            });
+
+                        } else {
+                            console.log("Max. player reached, join another room!!");
+                        }
+                    }
+                });
+                //SMOOTH CAMERA FOLLOW--------><-----------------------------------
+                scene.registerBeforeRender(function() {
+                    sphere.position = BABYLON.Vector3.Lerp(sphere.position, shft, .05)
+                    camera.target.x = sphere.position.x
+                    camera.target.z = sphere.position.z
+                })
+                // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+                var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+
+                return scene;
+
+            };
+
+            var scene = createScene()
+
+            engine.runRenderLoop(function() {
+                if (scene) {
+                    scene.render();
+                }
+            });
+
+            // Resize
+            window.addEventListener("resize", function() {
+                engine.resize();
+            });
+
+
+            //Update all socket events
+
+
+            $('form').submit(function() {
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+            socket.on('chat message', function(msg) {
+                console.log(msg);
+                $('#messages').append($('<li>').text(msg));
+                window.scrollTo(0, document.body.scrollHeight);
+            });
         });
-        
-        
-        //Update all socket events
-      
-        
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          console.log(msg);
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
-      });
     </script>
-  </body>
+</body>
+
 </html>
