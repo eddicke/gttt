@@ -215,6 +215,10 @@ setInterval(function() {
               newplayers[dir.rnd].material = mat;
                 newplayers[dir.rnd].rotation.y = Math.atan2(newplayers[dir.rnd].position.x - dir.disp.x, newplayers[dir.rnd].position.z - dir.disp.z)
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
+		      
+		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
+            camera.target.x = newplayers[dir.rnd].position.x
+            camera.target.z = newplayers[dir.rnd].position.z
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
@@ -223,9 +227,7 @@ setInterval(function() {
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
-            //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-            camera.target.x = newplayers[dir.rnd].position.x
-            camera.target.z = newplayers[dir.rnd].position.z
+           
           
           
         }
