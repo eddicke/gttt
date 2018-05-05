@@ -457,8 +457,8 @@
                                 if (terrainCreated) {
                                     playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
                                     newplayers[dir.rnd].position.y = playerAltitude;
-                                    camAltitude = terrain.getHeightFromMap(camera.position.x, camera.position.z) + camElevation;
-                                    camera.position.y = camAltitude;
+                                    camAltitude = terrain.getHeightFromMap(camera.target.x, camera.target.z) + camElevation;
+                                    camera.target.y = camAltitude;
 
                                 }
                             });
