@@ -198,17 +198,21 @@ setInterval(function() {
            var cnt = 0
            var pl = []
 	   var original = []
+	   var select = 0
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
               //direction
               socket.on('directions', function(dirs) {
               cnt += 1
-             
+             select += 1
             for (var id in dirs) {
             var dir = dirs[id];
               
               if(dir.spawn){
+		      if(select == 1){
 		      original.push(dir.rnd)
+		      }
+		      
               console.log("this is random"+dir.rnd);
               newplayers[dir.rnd].setEnabled(true);
               
@@ -241,7 +245,7 @@ setInterval(function() {
             });
         
             scene.registerBeforeRender(function() {
-		console.log("original player is "+original[0]) 
+		console.log("original player is "+original[original.length-1]) 
 	    })
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
