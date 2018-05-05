@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
       spawn: true,
       move: false,
       rotY: 0,
-      lastpos,
+      lastpos: new BABYLON.Vector3.Zero(),
       vel: 0
     }
     //limit the number of players available
