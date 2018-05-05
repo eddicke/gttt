@@ -214,9 +214,12 @@ for(var i = 0; i<20; i++){
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
 		
+		 scene.registerBeforeRender(function() {
+			 cnt += 1 
+		 })
               //direction
               socket.on('directions', function(dirs) {
-              cnt += 1
+             
             
             for (var id in dirs) {
             var dir = dirs[id];
