@@ -48,6 +48,7 @@ io.on('connection', function(socket) {
       disp: {x: 0, y: 0, z: 0},
       color: {r: Math.random()*1, g: Math.random()*1, b: Math.random()*1},
       rnd: cnts,
+      cam: {x: 0, y: 0, z: 0},
       spawn: true,
       move: false
     }
@@ -72,6 +73,13 @@ io.on('connection', function(socket) {
       var dir = dirs[socket.id] || {};
      dir.disp = data;
    })
+  
+  socket.on('camera-follow', function(data) {
+      var dir = dirs[socket.id] || {};
+     dir.cam = data;
+   })
+
+  
   socket.on('movement', function(data) {
     var player = players[socket.id] || {};
     var dir = dirs[socket.id] || {};
