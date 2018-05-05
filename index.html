@@ -160,7 +160,7 @@
 
                 var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
                 camera.attachControl(canvas, true);
-                camera.setPosition(new BABYLON.Vector3(0, 10, -20));
+                camera.setPosition(new BABYLON.Vector3(0, 10, -40));
 
                 // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
                 var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -275,7 +275,7 @@
 
                 var newplayers = []
                 for (var i = 0; i < 20; i++) {
-                    var player = new BABYLON.Mesh.CreateBox("sphere1", 2, scene);
+                    var player = new BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                     player.setEnabled(false)
                     newplayers.push(player)
                 }
