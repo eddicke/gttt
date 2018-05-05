@@ -238,13 +238,18 @@ for(var i = 0; i<20; i++){
 		      
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
 		cameras[dir.rnd].setEnabled(true)
-		scene.activeCamera = cameras[1]
+		scene.activeCamera = cameras[dir.rnd]
+		      
+		      cameras[dir.rnd].target.x = newplayers[dir.rnd].position.x
+        cameras[dir.rnd].target.z = newplayers[dir.rnd].position.z
 		      console.log(scene.activeCamera.name)
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
                 scene.registerBeforeRender(function() {
                   
+	
+			
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
