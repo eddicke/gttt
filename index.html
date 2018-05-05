@@ -245,7 +245,115 @@
 
 
 }
-    
+    //GRASS PROCEDURAL GENERATION--------------------------------><----------------------------------------------
+    //GRASS------------><--------------------------
+ BABYLON.Effect.ShadersStore["customVertexShader"]=                "precision highp float;\r\n"+
+
+                "// Attributes\r\n"+
+                "attribute vec3 position;\r\n"+
+                "attribute vec2 uv;\r\n"+
+                "attribute vec3 normal;\r\n"+
+
+                "//var\r\n"+
+                "varying vec3 vPosition;\r\n"+
+                "varying vec3 vNormal;\r\n"+
+                "varying vec2 vUv;\r\n"+
+                "varying vec2 vUv2;\r\n"+
+
+                "uniform sampler2D textureSampler;\r\n"+
+
+                "// Uniforms\r\n"+
+                "uniform mat4 worldViewProjection;\r\n"+
+
+                "// Varying\r\n"+
+                "varying vec2 vUV;\r\n"+
+
+
+                "void main(void) {\r\n"+
+                "    \r\n"+
+                "    vec2 pos = vec2(uv)-9.;\r\n"+
+                "    pos *= 6.;\r\n"+
+                "    float distb = texture(textureSampler, pos).g;\r\n"+
+                "    vNormal = normal;\r\n"+
+                "    vUv = uv;\r\n"+
+                " \r\n"+
+                "    vPosition = position;\r\n"+
+                "    \r\n"+
+                "    vec3 v = position;\r\n"+
+                "    if(distb > .8){v.y = mix(-3., 0., -distb);};\r\n"+
+                
+                "    gl_Position = worldViewProjection * vec4(v, 1.0);\r\n"+
+
+                "    vUV = uv;\r\n"+
+                "}\r\n";
+
+                BABYLON.Effect.ShadersStore["customFragmentShader"]=                "precision highp float;\r\n"+
+
+                "varying vec2 vUV;\r\n"+
+                "varying vec3 vPosition;\r\n"+
+                "uniform sampler2D textureSampler;\r\n"+
+                "uniform sampler2D baseSampler;\r\n"+
+
+                "void main(void) {\r\n"+
+                "vec2 pos = vec2(vUV);\r\n"+
+                "pos *= 6.;\r\n"+
+                "vec3 vc = vPosition;\r\n"+
+                "vec3 color = texture2D(textureSampler, pos).rgb;\r\n"+
+                "vec3 color2 = texture2D(baseSampler, pos).rgb;\r\n"+
+                "if(color2.g > .8){discard;};\r\n"+
+                "    float luminance = dot(texture2D(textureSampler, vUV).rgb, vec3(0.3, 0.59, 0.11));\r\n"+
+                "    gl_FragColor = vec4(color2*vec3(.5, 1.2, .5)*.5, 9.0);\r\n"+
+                "}\r\n";
+
+
+
+
+    var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
+        vertex: "custom",
+        fragment: "custom",
+	    },
+        {
+			attributes: ["position", "normal", "uv"],
+			uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+        });
+
+
+    var mainTexture = new BABYLON.Texture("https://rawcdn.githack.com/waverider404/game-assets/master/polkadots-green_shop_preview.png", scene);
+    var baseTexture = new BABYLON.Texture("https://rawcdn.githack.com/waverider404/game-assets/master/polkadots-green_shop_preview.png", scene);
+    shaderMaterial.setTexture("textureSampler", mainTexture);
+    shaderMaterial.setTexture("baseSampler", baseTexture); 
+	shaderMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+    shaderMaterial.backFaceCulling = false;
+
+    s.onload = function() {
+        var mapSubX = 36;
+        var mapSubZ = 36;
+        var terrainSub = 150;
+
+        var mapData = new Float32Array(mapSubX * mapSubZ * 3);   
+        for (var l = 0; l < mapSubZ; l++) {           
+            for (var w = 0; w < mapSubX; w++) {                
+                mapData[3 *(l * mapSubX + w)] = (w - mapSubX * 0.5) * 2.0;
+                mapData[3 * (l * mapSubX + w) + 1] = 0;
+                mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 2.0;
+           }            
+        }
+        var params = {
+            mapData: mapData,
+            mapSubX: mapSubX,
+            mapSubZ: mapSubZ,
+            terrainSub: terrainSub
+        };
+        var terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
+        terrain.mesh.position.y = -4;
+       
+        terrain.mesh.scaling.y = -terrain.mesh.scaling.y
+        var mapMaterial = new BABYLON.StandardMaterial("materialGround", scene);
+        mapMaterial.wireframe = true;
+        terrain.mesh.material = shaderMaterial;
+
+    };
+		    
                 //socket.io events---------------------------------------><--------------------------------------
                 socket.emit('new player');
                 setInterval(function() {
