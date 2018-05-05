@@ -50,7 +50,9 @@ io.on('connection', function(socket) {
       rnd: cnts,
       cam: {x: 0, y: 0, z: 0},
       spawn: true,
-      move: false
+      move: false,
+      rotY: 0,
+      vel: 0
     }
     //limit the number of players available
     if(cnts == 20){
@@ -69,6 +71,11 @@ io.on('connection', function(socket) {
  
     
   });
+   socket.on('locomotive', function(data) {
+     var dir = dirs[socket.id] || {};
+     dir.rotY = data.rotAxis
+     dir.vel = data.velocity
+   })
    socket.on('shift', function(data) {
       var dir = dirs[socket.id] || {};
      dir.disp = data;
