@@ -201,6 +201,10 @@ setInterval(function() {
 	   var select = 0
      var playerElevation = 2.0;
     var playerAltitude = 0.0;
+		 
+		 scene.registerBeforeRender(function() {
+			select += 1; 
+		 })
               //direction
               socket.on('directions', function(dirs) {
               cnt += 1
@@ -232,10 +236,10 @@ setInterval(function() {
         if (terrainCreated) {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
-		 select += 1
+		
          if(select == 1){
-		 select = 1
-		 console.log(select+ " selected")
+
+		 console.log(dir.rnd+ " selected")
            camera.target.x = newplayers[dir.rnd].position.x
            camera.target.z = newplayers[dir.rnd].position.z
 	 }
