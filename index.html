@@ -219,10 +219,7 @@ setInterval(function() {
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
 		      
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-		      if(original[0] == dir.rnd){
-            camera.target.x = newplayers[dir.rnd].position.x
-            camera.target.z = newplayers[dir.rnd].position.z
-		      }
+		  
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
@@ -243,7 +240,9 @@ setInterval(function() {
             }
             });
         
-           
+            scene.registerBeforeRender(function() {
+		console.log("original player is "+original[0]) 
+	    })
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
         
