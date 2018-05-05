@@ -237,7 +237,7 @@ setInterval(function() {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
 		
-         if(select == 1){
+         if(select > 1){
 
 		 console.log(dir.rnd+ " selected")
            camera.target.x = newplayers[dir.rnd].position.x
