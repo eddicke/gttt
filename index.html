@@ -299,7 +299,8 @@
                 var select = 0
                 var playerElevation = 1.0;
                 var playerAltitude = 0.0;
-
+		var camElevation = 8.0;
+    		var camAltitude = 0.0;
                 var nerd = []
                 //direction
                 socket.on('directions', function(dirs) {
@@ -328,7 +329,8 @@
                                 if (terrainCreated) {
                                     playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
                                     newplayers[dir.rnd].position.y = playerAltitude;
-
+				    camAltitude = terrain.getHeightFromMap(camera.position.x, camera.position.z) + camElevation;
+            			    camera.position.y = camAltitude;
 
                                 }
                             });
