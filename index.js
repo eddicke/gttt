@@ -52,6 +52,7 @@ io.on('connection', function(socket) {
       spawn: true,
       move: false,
       rotY: 0,
+      lastpos,
       vel: 0
     }
     //limit the number of players available
@@ -71,6 +72,11 @@ io.on('connection', function(socket) {
  
     
   });
+  
+  socket.on('getPosition', function(data) {
+     var dir = dirs[socket.id] || {};
+    dir.lastpos = data;
+  })
    socket.on('locomotive', function(data) {
      var dir = dirs[socket.id] || {};
      dir.rotY = data.rotAxis
