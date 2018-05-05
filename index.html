@@ -233,7 +233,8 @@ setInterval(function() {
             playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
             newplayers[dir.rnd].position.y = playerAltitude;
            
-          
+           camera.target.x = newplayers[dir.rnd].position.x
+           camera.target.z = newplayers[dir.rnd].position.z
           
         }
     });
