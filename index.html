@@ -151,7 +151,10 @@
             s.src = url;
             document.head.appendChild(s);
 
-
+		var url = "https://cdn.rawgit.com/waverider404/game-assets/master/dynamic-terrain(Jerome).js";
+		var s2 = document.createElement("script");
+		s2.src = url;
+		document.head.appendChild(s2);
             //////***********BABYLONJS CODE************|||||||||||||||||
             var createScene = function() {
 
@@ -325,7 +328,7 @@
 	shaderMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
     shaderMaterial.backFaceCulling = false;
 
-    s.onload = function() {
+    s2.onload = function() {
         var mapSubX = 36;
         var mapSubZ = 36;
         var terrainSub = 150;
@@ -344,13 +347,12 @@
             mapSubZ: mapSubZ,
             terrainSub: terrainSub
         };
-        var terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
-        terrain.mesh.position.y = -4;
-       
-        terrain.mesh.scaling.y = -terrain.mesh.scaling.y
+        var GRASSLAND = new BABYLON.DynamicTerrain("terrain", params, scene);
+        GRASSLAND.mesh.position.y = -4;   
+        GRASSLAND.mesh.scaling.y = -GRASSLAND.mesh.scaling.y
         var mapMaterial = new BABYLON.StandardMaterial("materialGround", scene);
         mapMaterial.wireframe = true;
-        terrain.mesh.material = shaderMaterial;
+        GRASSLAND.mesh.material = shaderMaterial;
 
     };
 		    
