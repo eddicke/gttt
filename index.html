@@ -217,8 +217,8 @@ setInterval(function() {
                 newplayers[dir.rnd].position = BABYLON.Vector3.Lerp(newplayers[dir.rnd].position, dir.disp, .05);
 		      
 		       //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><-------------------------------------
-            camera.target.x = newplayers[dir.rnd].position.x
-            camera.target.z = newplayers[dir.rnd].position.z
+            camera.target.x = dir.disp.x
+            camera.target.z = dir.disp.z
      //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
               
                 //TERRAIN HEIGHTMAP-------------------------><---------------------------------------------------------
