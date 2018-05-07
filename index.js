@@ -13,6 +13,7 @@ var mrt = {
 
 var players = {};
 var dirs = {};
+var actions = {};
 var cnts = 0;
 var tgh = 0;
 //avoid duplicates
@@ -43,7 +44,9 @@ io.on('connection', function(socket) {
 
   socket.on('new player', function() {
     cnts += 1
-    
+    actions[socket.id] = {
+      play: false
+    }
        dirs[socket.id] = {
       disp: {x: 0, y: 0, z: 0},
       color: {r: Math.random()*1, g: Math.random()*1, b: Math.random()*1},
@@ -73,6 +76,10 @@ io.on('connection', function(socket) {
     
   });
   
+  socket.on('changeActions', function(data) {
+    var action = actions[socket.id] || {};
+    action.play = data;
+  })
   socket.on('getPosition', function(data) {
      var dir = dirs[socket.id] || {};
     dir.lastpos = data;
@@ -136,7 +143,7 @@ setInterval(function(){
 //}, 1000 / 60);
 
 setInterval(function() {
-  
+    io.sockets.emit('playAnimations', actions);
    io.sockets.emit('directions', dirs);
   io.sockets.emit('online', cnts);
   
