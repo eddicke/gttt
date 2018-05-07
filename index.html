@@ -471,7 +471,7 @@
 
                 var skeleton;
                 var loaded = false
-                BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function(newMeshes, particleSystems, skeletons) {
+                var loader = BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function(newMeshes, particleSystems, skeletons) {
                     loaded = true
 
                     newMeshes[0].scaling.set(5, 5, 5);
@@ -506,7 +506,9 @@
                          
                      })
                 });
-
+                loader.onMaterialLoaded = function (material) {
+                material.sideOrientation = 1;
+                };
                 //--------------------------------------><------------------------------------------------------------//
                 var cnt = 0
                 var pl = []
