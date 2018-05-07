@@ -240,6 +240,15 @@
                 terrainMaterial.diffuseTexture1.uScale = terrainMaterial.diffuseTexture1.vScale = 10;
                 terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
                 terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
+                
+                var grass2 = new BABYLON.StandardMaterial("terrainmat", scene);
+                grass2.bumpTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_NRM.png?download=true", scene);
+                grass2.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/itcixqgd0par86v/PicsArt_05-07-05.53.38.jpg", scene);
+	            grass2.ambientTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_OCC.png?download=true", scene);
+	
+                grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
+                grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
+                grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
 
                 //terrain
 
@@ -282,7 +291,7 @@
                         terrainSub: terrainSub // how many terrain subdivisions wanted
                     }
                     terrain = new BABYLON.DynamicTerrain("t", params, scene);
-                    terrain.mesh.material = terrainMaterial;
+                    terrain.mesh.material = grass2;
                     terrain.subToleranceX = 10;
                     terrain.subToleranceZ = 5;
                     terrainCreated = true;
