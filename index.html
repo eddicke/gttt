@@ -460,7 +460,7 @@
                     cameras.push(cam)
                 }
 
-
+		scene.debugLayer.show();
 
                 //CAMERAS------------------------------><-------------------------------------------------------
 		    //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
@@ -469,6 +469,8 @@
 var loaded = false
 BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function (newMeshes, particleSystems, skeletons) {
 loaded = true
+	
+newMeshes[0].scaling.set(5, 5, 5);
 for(var i = 0; i<5; i++){
   for(var k = 0; k<newMeshes.length; k++){
   var m = newMeshes[k].createInstance("name"+i)
