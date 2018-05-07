@@ -485,12 +485,27 @@
                     }
 
                     newMeshes[0].setEnabled(false);
+                    var action1 = false
+                    document.addEventListener("keydown", function(ev){
+                      if(ev.which == 32){
+                          action1 = true
+                          socket.emit("changeActions", action1);
+                      }
+                    })
+                    
+                     socket.on('playAnimations', function(actions) {
 
+                    cnt += 1
+                    for (var id in actions) {
+                        var action = actions[id];
+                        if(action.play){
                     for (var i = 0; i < skeletons.length; i++) {
-                        scene.beginAnimation(skeletons[i], 0, 100, true, 4.0);
+                        scene.beginAnimation(skeletons[i], 0, 100, true, 6.0);
                     }
-
-
+                        }
+                    }
+                         
+                     })
                 });
 
                 //--------------------------------------><------------------------------------------------------------//
