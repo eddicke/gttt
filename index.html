@@ -3,7 +3,7 @@
 
 <head>
     <title>Socket.IO chat</title>
-	
+
 </head>
 
 <body>
@@ -26,32 +26,34 @@
     <title>A Multiplayer Game</title>
     <canvas id="renderCanvas"></canvas>
     <div>
-    <button>hide chatBox</button>
-    <ul id="messages"></ul>
+        <button>hide chatBox</button>
+        <ul id="messages"></ul>
     </div>
     <form action="">
         <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-	
 
-	  <!------ chatBox ---------->
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-     
+    <!------ chatBox ---------->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-	#messages{
-		height:200px; 
-		width:50%;
-		overflow:hidden; 
-		overflow-y:scroll;
-	    }
+
+        #messages {
+            height: 200px;
+            width: 50%;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+
         body {
             font: 13px Helvetica, Arial;
         }
@@ -95,11 +97,10 @@
         #messages {
             margin-bottom: 40px
         }
-	
     </style>
 
-	
-	<!-- Babylon.js -->
+
+    <!-- Babylon.js -->
     <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
     <script src="https://preview.babylonjs.com/cannon.js"></script>
@@ -186,8 +187,8 @@
                 camera.setPosition(new BABYLON.Vector3(0, 10 * 2, -20 * 2));
                 camera.keysUp = [];
                 camera.keysDown = [];
-		camera.upperBetaLimit = 1.5
-		camera.lowerBetaLimit = .5
+                camera.upperBetaLimit = 1.5
+                camera.lowerBetaLimit = .5
                 // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
                 var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
@@ -417,25 +418,28 @@
                     }
 
                 }
-		
+
                 //LOCOMOTION------------------------><-----------------------------------------------------------
                 var speed = 0
                 var rotY = 0
-                document.addEventListener("keydown", function(ev){
-                if (ev.which == 32){	// En avant		
-	            speed = -.55
-	            }	
+                document.addEventListener("keydown", function(ev) {
+                    if (ev.which == 32) { // En avant		
+                        speed = -.55
+                    }
                 })
-                
-                document.addEventListener("keyup", function(ev){
-                if (ev.which == 32){	// En avant		
-	            speed = 0
-	            }	
+
+                document.addEventListener("keyup", function(ev) {
+                    if (ev.which == 32) { // En avant		
+                        speed = 0
+                    }
                 })
-                setInterval(function(){
+                setInterval(function() {
                     rotY = -4.69 - camera.alpha;
-                    socket.emit("locomotive", {velocity: speed, rotAxis: rotY})
-                }, 1000/60)
+                    socket.emit("locomotive", {
+                        velocity: speed,
+                        rotAxis: rotY
+                    })
+                }, 1000 / 60)
                 //Array of limited players----------------><-------------------------------------------------------------------
                 setInterval(function() {
                     socket.emit("camera-follow", shft);
@@ -460,36 +464,36 @@
                     cameras.push(cam)
                 }
 
-		scene.debugLayer.show();
+                scene.debugLayer.show();
 
                 //CAMERAS------------------------------><-------------------------------------------------------
-		    //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
-		    
-		    var skeleton;
-var loaded = false
-BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function (newMeshes, particleSystems, skeletons) {
-loaded = true
-	
-newMeshes[0].scaling.set(5, 5, 5);
-for(var i = 0; i<5; i++){
-  for(var k = 0; k<newMeshes.length; k++){
-  var m = newMeshes[k].createInstance("name"+i)
-  m.scaling.set(5, 5, 5);
-  m.position.z = 15*(i/4);
-  m.setEnabled(false);
-  }
-}
+                //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
 
-	newMeshes[0].setEnabled(false);
-	
-               for(var i = 0; i<skeletons.length; i++){
-               scene.beginAnimation(skeletons[i], 0, 100, true, 4.0);
-           }   
-    
+                var skeleton;
+                var loaded = false
+                BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function(newMeshes, particleSystems, skeletons) {
+                    loaded = true
 
-	});
-		    
-		    //--------------------------------------><------------------------------------------------------------//
+                    newMeshes[0].scaling.set(5, 5, 5);
+                    for (var i = 0; i < 5; i++) {
+                        for (var k = 0; k < newMeshes.length; k++) {
+                            var m = newMeshes[k].createInstance("name" + i)
+                            m.scaling.set(11, 11, 11);
+                            m.position.z = 15 * (i / 4);
+                            m.setEnabled(false);
+                        }
+                    }
+
+                    newMeshes[0].setEnabled(false);
+
+                    for (var i = 0; i < skeletons.length; i++) {
+                        scene.beginAnimation(skeletons[i], 0, 100, true, 4.0);
+                    }
+
+
+                });
+
+                //--------------------------------------><------------------------------------------------------------//
                 var cnt = 0
                 var pl = []
                 var original = []
@@ -511,23 +515,23 @@ for(var i = 0; i<5; i++){
                             original.push(dir.rnd)
                             console.log("this is random" + dir.rnd);
                             newplayers[dir.rnd].setEnabled(false);
-			    
-				//CALL THE MECH TO THE SCENE-------------------><--------------------------------------
-				 if(loaded){
-  				scene.meshes.forEach(function(m){
-    				if(m.name === "name"+dir.rnd){
-        				m.setEnabled(true)
-					//m.rotation.y = dir.rotY;
-					m.position.copyFrom(dir.lastpos)
-    				}
-     				})
-   				 }
-				//MECHIIII-------------------------------------><--------------------------------------
+
+                            //CALL THE MECH TO THE SCENE-------------------><--------------------------------------
+                            if (loaded) {
+                                scene.meshes.forEach(function(m) {
+                                    if (m.name === "name" + dir.rnd) {
+                                        m.setEnabled(true)
+                                        //m.rotation.y = dir.rotY;
+                                        m.position.copyFrom(dir.lastpos)
+                                    }
+                                })
+                            }
+                            //MECHIIII-------------------------------------><--------------------------------------
                             var mat = new BABYLON.StandardMaterial("texture2", scene);
                             mat.diffuseColor = new BABYLON.Color3(dir.color.r, dir.color.b, dir.color.g);
                             newplayers[dir.rnd].material = mat;
                             newplayers[dir.rnd].rotation.y = dir.rotY
-			    newplayers[dir.rnd].position.copyFrom(dir.lastpos)
+                            newplayers[dir.rnd].position.copyFrom(dir.lastpos)
                             //CREATE A NICE SMOOTH FOLLOW CAMERA-----------------><----------------------------------------
                             //MAKE THE PLAYER LERP----------------------------------------><-------------------------------------------------
 
@@ -549,15 +553,15 @@ for(var i = 0; i<5; i++){
                 });
                 //SMOOTH CAMERA FOLLOW--------><-----------------------------------
                 scene.registerBeforeRender(function() {
-                  sphere.rotation.y = rotY
-                  sphere.locallyTranslate(new BABYLON.Vector3(0, 0, speed))
-		  camera.target.x = sphere.position.x
-		  camera.target.z = sphere.position.z
+                    sphere.rotation.y = rotY
+                    sphere.locallyTranslate(new BABYLON.Vector3(0, 0, speed))
+                    camera.target.x = sphere.position.x
+                    camera.target.z = sphere.position.z
                 })
-		    setInterval(function(){			    
-		     socket.emit("getPosition", sphere.getAbsolutePosition())
-		    }, 1000/60);
-		    
+                setInterval(function() {
+                    socket.emit("getPosition", sphere.getAbsolutePosition())
+                }, 1000 / 60);
+
                 // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
                 var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
@@ -932,7 +936,7 @@ for(var i = 0; i<5; i++){
                 engine.resize();
             });
 
-//CHATBOX---------------><-----------------------------------------------
+            //CHATBOX---------------><-----------------------------------------------
 
             $('form').submit(function() {
                 socket.emit('chat message', $('#m').val());
