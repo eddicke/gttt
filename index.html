@@ -494,15 +494,13 @@
                     })
                     
                      socket.on('playAnimations', function(actions) {
-
-                    cnt += 1
                     for (var id in actions) {
                         var action = actions[id];
                         if(action.play){
-                            alert("yeee")
-                    /*for (var i = 0; i < skeletons.length; i++) {
+                            
+                    for (var i = 0; i < skeletons.length; i++) {
                         scene.beginAnimation(skeletons[i], 0, 100, true, 6.0);
-                    }*/
+                    }
                         }
                     }
                          
