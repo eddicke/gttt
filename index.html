@@ -510,14 +510,14 @@ for(var i = 0; i<5; i++){
 
                             original.push(dir.rnd)
                             console.log("this is random" + dir.rnd);
-                            newplayers[dir.rnd].setEnabled(true);
+                            newplayers[dir.rnd].setEnabled(false);
 			    
 				//CALL THE MECH TO THE SCENE-------------------><--------------------------------------
 				 if(loaded){
   				scene.meshes.forEach(function(m){
     				if(m.name === "name"+dir.rnd){
         				m.setEnabled(true)
-					m.rotation.y = dir.rotY;
+					//m.rotation.y = dir.rotY;
 					m.position.copyFrom(dir.lastpos)
     				}
      				})
