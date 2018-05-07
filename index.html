@@ -463,6 +463,28 @@
 
 
                 //CAMERAS------------------------------><-------------------------------------------------------
+		    //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
+		    
+		    var skeleton;
+var loaded = false
+BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function (newMeshes, particleSystems, skeletons) {
+loaded = true
+for(var i = 0; i<5; i++){
+  for(var k = 0; k<newMeshes.length; k++){
+  var m = newMeshes[k].createInstance("name"+i)
+m.position.y = 6*(i/4)
+m.setEnabled(false)
+  }
+}
+
+               for(var i = 0; i<skeletons.length; i++){
+               scene.beginAnimation(skeletons[i], 0, 100, true, 4.0);
+           }   
+    
+
+	});
+		    
+		    //--------------------------------------><------------------------------------------------------------//
                 var cnt = 0
                 var pl = []
                 var original = []
