@@ -141,9 +141,12 @@ setInterval(function(){
 // setInterval(function() {
  
 //}, 1000 / 60);
-
 setInterval(function() {
     io.sockets.emit('playAnimations', actions);
+}, 4000);
+
+setInterval(function() {
+  
    io.sockets.emit('directions', dirs);
   io.sockets.emit('online', cnts);
   
