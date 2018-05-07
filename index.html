@@ -487,7 +487,7 @@
                     newMeshes[0].setEnabled(false);
                     var action1 = false
                     document.addEventListener("keydown", function(ev){
-                      if(ev.which == 32){
+                      if(ev.which == 16){
                           action1 = true
                           socket.emit("changeActions", action1);
                       }
@@ -499,9 +499,10 @@
                     for (var id in actions) {
                         var action = actions[id];
                         if(action.play){
-                    for (var i = 0; i < skeletons.length; i++) {
+                            alert("yeee")
+                    /*for (var i = 0; i < skeletons.length; i++) {
                         scene.beginAnimation(skeletons[i], 0, 100, true, 6.0);
-                    }
+                    }*/
                         }
                     }
                          
