@@ -239,12 +239,12 @@
                 terrainMaterial.diffuseTexture1.uScale = terrainMaterial.diffuseTexture1.vScale = 10;
                 terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
                 terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
-                
+
                 var grass2 = new BABYLON.StandardMaterial("terrainmat", scene);
                 grass2.bumpTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_NRM.png?download=true", scene);
                 grass2.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/itcixqgd0par86v/PicsArt_05-07-05.53.38.jpg", scene);
-	            grass2.ambientTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_OCC.png?download=true", scene);
-	
+                grass2.ambientTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_OCC.png?download=true", scene);
+
                 grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
                 grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
                 grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
@@ -301,7 +301,7 @@
                 //GRASS PROCEDURAL GENERATION--------------------------------><----------------------------------------------
                 //GRASS------------><--------------------------
                 BABYLON.Effect.ShadersStore["customVertexShader"] =
-	` 
+                    ` 
 precision highp float;
 
 // Attributes
@@ -362,9 +362,9 @@ vPosition = newPosition;
 
 }
   	 `;
-			
-   BABYLON.Effect.ShadersStore["customFragmentShader"] =
-	   `
+
+                BABYLON.Effect.ShadersStore["customFragmentShader"] =
+                    `
         precision highp float;
 
 uniform sampler2D heightMap;
@@ -411,20 +411,19 @@ discard;
     gl_FragColor = vec4( basecolor.rgb*.5, 1. );
 
 }
-        ` ; 
-		
-	var mat = new BABYLON.ShaderMaterial("ball_shader", scene,
-            "custom",
-            {
-                attributes: ["position","normal", "uv"]
-                ,uniforms: ["worldViewProjection","world","vPositionW","vNormalW", "time"]
-            });
+        `;
 
-var texture = new BABYLON.Texture("https://cdn.rawgit.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
-var normal = new BABYLON.Texture("https://cdn.rawgit.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
+                var mat = new BABYLON.ShaderMaterial("ball_shader", scene,
+                    "custom", {
+                        attributes: ["position", "normal", "uv"],
+                        uniforms: ["worldViewProjection", "world", "vPositionW", "vNormalW", "time"]
+                    });
 
-mat.setTexture("basetexture", texture)
-mat.setTexture("heightMap", normal)
+                var texture = new BABYLON.Texture("https://cdn.rawgit.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
+                var normal = new BABYLON.Texture("https://cdn.rawgit.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
+
+                mat.setTexture("basetexture", texture)
+                mat.setTexture("heightMap", normal)
 
                 s2.onload = function() {
                     var mapSubX = 36;
@@ -447,10 +446,15 @@ mat.setTexture("heightMap", normal)
                     };
                     var GRASSLAND = new BABYLON.DynamicTerrain("terraingrass", params, scene);
                     GRASSLAND.mesh.position.y = -44.0;
-        	    GRASSLAND.mesh.scaling.y = 5
+                    GRASSLAND.mesh.scaling.y = 5
                     GRASSLAND.mesh.alwaysSelectAsActiveMesh = true
                     GRASSLAND.mesh.material = mat;
+                    var threshold = 0
+                    scene.onAfterCameraRenderObservable.add(function() {
+                        threshold += .02
+                        mat.setFloat("time", Math.sin(threshold) + 10)
 
+                    })
                 };
 
                 //socket.io events---------------------------------------><--------------------------------------
@@ -502,7 +506,7 @@ mat.setTexture("heightMap", normal)
                     socket.emit('shift', shft);
                 }, 1000 / 60);
 
-                
+
 
                 //CREATE MULTIPLE CAMERAS FOR PLAYERS-------------------><--------------------------
                 var cameras = []
@@ -516,11 +520,11 @@ mat.setTexture("heightMap", normal)
 
                 scene.debugLayer.show();
                 //GUI-----------------------------------------------><------------------------------------------------------
-                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+                var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 //CREATE PLAYER LABEL/INDICATOR------------------------------><--------------------------------------------------
                 var labels = []
                 //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
-                
+
                 var skeleton;
                 var loaded = false
                 var loader = BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/waverider404/game-assets/master/mech/", "mechxg.glb", scene, function(newMeshes, particleSystems, skeletons) {
@@ -538,30 +542,30 @@ mat.setTexture("heightMap", normal)
 
                     newMeshes[0].setEnabled(false);
                     var action1 = false
-                    document.addEventListener("keydown", function(ev){
-                      if(ev.which == 16){
-                          action1 = true
-                          socket.emit("changeActions", action1);
-                      }
-                    })
-                    
-                     socket.on('playAnimations', function(actions) {
-                    for (var id in actions) {
-                        var action = actions[id];
-                        if(action.play){
-                            
-                    for (var i = 0; i < skeletons.length; i++) {
-                        scene.beginAnimation(skeletons[i], 0, 100, true, 6.0);
-                    }
+                    document.addEventListener("keydown", function(ev) {
+                        if (ev.which == 16) {
+                            action1 = true
+                            socket.emit("changeActions", action1);
                         }
-                    }
-                         
-                     })
+                    })
+
+                    socket.on('playAnimations', function(actions) {
+                        for (var id in actions) {
+                            var action = actions[id];
+                            if (action.play) {
+
+                                for (var i = 0; i < skeletons.length; i++) {
+                                    scene.beginAnimation(skeletons[i], 0, 100, true, 6.0);
+                                }
+                            }
+                        }
+
+                    })
                 });
-                loader.onMaterialLoaded = function (material) {
-                material.sideOrientation = 1;
+                loader.onMaterialLoaded = function(material) {
+                    material.sideOrientation = 1;
                 };
-                
+
                 //REFERENCE PLAYER---------------------------------------><-------------------------------------
                 var newplayers = []
                 for (var i = 0; i < 5; i++) {
@@ -583,7 +587,7 @@ mat.setTexture("heightMap", normal)
                     label.text = "GUEST";
                     rect1.addControl(label);
 
-                    rect1.linkWithMesh(player);   
+                    rect1.linkWithMesh(player);
                     rect1.linkOffsetY = -80;
                     rect1.isVisible = false;
                     labels.push(rect1)
@@ -614,7 +618,7 @@ mat.setTexture("heightMap", normal)
                             //CALL THE MECH TO THE SCENE-------------------><--------------------------------------
                             if (loaded) {
                                 labels[dir.rnd].isVisible = true
-                                labels[dir.rnd].children[0].text = "G-XXX-"+dir.rnd;
+                                labels[dir.rnd].children[0].text = "G-XXX-" + dir.rnd;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
