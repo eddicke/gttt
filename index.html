@@ -484,7 +484,7 @@ discard;
                 var rotY = 0
                 document.addEventListener("keydown", function(ev) {
                     if (ev.which == 32) { // En avant		
-                        speed = -.85
+                        speed = -1.3
                     }
                 })
 
@@ -534,7 +534,7 @@ discard;
                     for (var i = 0; i < 5; i++) {
                         for (var k = 0; k < newMeshes.length; k++) {
                             var m = newMeshes[k].createInstance("name" + i)
-                            m.scaling.set(1.2, 1.2, 1.2);
+                            m.scaling.set(1.1, 1.1, 1.1);
 	        	    m.rotation.y = Math.PI;
                             m.position.z = 15 * (i / 4);
                             m.setEnabled(false);
