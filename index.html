@@ -571,6 +571,8 @@ discard;
                 for (var i = 0; i < 5; i++) {
                     var player = new BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                     player.setEnabled(false)
+		    player.rotation.y = 100
+		    player.visibility = 0
                     newplayers.push(player)
                     var rect1 = new BABYLON.GUI.Rectangle();
                     rect1.width = 0.2;
