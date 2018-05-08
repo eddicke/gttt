@@ -240,14 +240,15 @@
                 terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
                 terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
 
-                var grass2 = new BABYLON.StandardMaterial("terrainmat", scene);
-                grass2.bumpTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_NRM.png?download=true", scene);
-                grass2.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/itcixqgd0par86v/PicsArt_05-07-05.53.38.jpg", scene);
-                grass2.ambientTexture = new BABYLON.Texture("https://cld.pt/dl/download/510447f0-0919-44f9-a52c-7b21794188dc/Sandstone%20001/sandstone_rock_001_OCC.png?download=true", scene);
+                var grass2 = new BABYLON.StandardMaterial("grass2", scene);
+    		grass2.bumpTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_NRM.png", scene);
+    		grass2.diffuseTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_COLOR.png", scene);
+		grass2.ambientTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_OCC.png", scene);
+	
+   	 	grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
+    		grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
+    		grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
 
-                grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
-                grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
-                grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
 
                 //terrain
 
@@ -323,7 +324,7 @@ varying vec2 vUv;
 
 float height(vec2 uv)
 {
-     vec4 bumpData = texture( heightMap, uv );
+     vec4 bumpData = texture2D( heightMap, uv );
     
     float vAmount = (bumpData.r * 256.0 + bumpData.g + bumpData.b / 256.0) ;
     return vAmount;
@@ -419,9 +420,9 @@ discard;
                         uniforms: ["worldViewProjection", "world", "vPositionW", "vNormalW", "time"]
                     });
 
-                var texture = new BABYLON.Texture("https://cdn.rawgit.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
-                var normal = new BABYLON.Texture("https://cdn.rawgit.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
-
+                var texture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
+		var normal = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
+		    
                 mat.setTexture("basetexture", texture)
                 mat.setTexture("heightMap", normal)
 
