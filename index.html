@@ -603,8 +603,9 @@ discard;
                 var camAltitude = 0.0;
                 var nerd = []
                 //direction
+		var rotr = 0
                 socket.on('directions', function(dirs) {
-
+			rotr += .05
                     cnt += 1
                     for (var id in dirs) {
                         var dir = dirs[id];
@@ -622,7 +623,7 @@ discard;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
-					m.rotation.y = sphere.rotation.y
+					m.rotation.y = rotr
                                         //m.rotation.y = dir.rotY;
                                         m.position.copyFrom(dir.lastpos)
                                     }
