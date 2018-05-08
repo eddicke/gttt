@@ -123,9 +123,9 @@
         var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
 
-        var gu = document.createElement("script")
-        gu.src = "https://cdn.rawgit.com/eddicke/chat-example/master/dist/gui.js";
-        document.body.appendChild(gu)
+        var gui = document.createElement("script")
+        gui.src = "https://cdn.rawgit.com/eddicke/chat-example/master/dist/gui.js";
+        document.body.appendChild(gui)
 
         $(function() {
             var socket = io();
@@ -223,7 +223,7 @@
 
 
                 //GUI-INTERFACE-----------------------------------------><-------------------------------------------
-		gu.onload = function(){
+		gui.onload = function(){
 		var popwind = new GUIWindow()
 		var change = true
 
