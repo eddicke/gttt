@@ -1,7 +1,7 @@
 // GUI
 var canInteract = false
 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-
+advancedTexture.renderAtIdealSize = true;
 var GUIControl = function(){
     this.switcher = BABYLON.GUI.Button.CreateSimpleButton("but1", "close");
         this.switcher.width = 0.2;
