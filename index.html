@@ -623,7 +623,7 @@ discard;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
-					m.rotation.y = rotr
+					m.rotation.y += rotr
                                         //m.rotation.y = dir.rotY;
                                         m.position.copyFrom(dir.lastpos)
                                     }
