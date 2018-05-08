@@ -531,10 +531,10 @@ discard;
 
                 scene.debugLayer.show();
                 //GUI-----------------------------------------------><------------------------------------------------------
-                var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+              /*  var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 		advancedTexture.renderAtIdealSize = true;
 		advancedTexture.idealWidth = 600;
-		advancedTexture.idealHeight = 400;
+		advancedTexture.idealHeight = 400;*/
                 //CREATE PLAYER LABEL/INDICATOR------------------------------><--------------------------------------------------
                 var labels = []
                 //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
@@ -589,7 +589,7 @@ discard;
                     player.rotation.y = Math.PI;
                     player.visibility = 0
                     newplayers.push(player)
-                    var rect1 = new BABYLON.GUI.Rectangle();
+                    /*var rect1 = new BABYLON.GUI.Rectangle();
                     rect1.width = 0.2;
                     rect1.height = "40px";
                     rect1.cornerRadius = 20;
@@ -606,7 +606,7 @@ discard;
                     rect1.linkWithMesh(player);
                     rect1.linkOffsetY = -50;
                     rect1.isVisible = false;
-                    labels.push(rect1)
+                    labels.push(rect1)*/
                 }
                 //--------------------------------------><------------------------------------------------------------//
                 var cnt = 0
@@ -634,8 +634,8 @@ discard;
 
                             //CALL THE MECH TO THE SCENE-------------------><--------------------------------------
                             if (loaded) {
-                                labels[dir.rnd].isVisible = true
-                                labels[dir.rnd].children[0].text = "G-XXX-" + dir.rnd;
+                              //  labels[dir.rnd].isVisible = true
+                             //   labels[dir.rnd].children[0].text = "G-XXX-" + dir.rnd;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
