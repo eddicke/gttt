@@ -570,7 +570,6 @@ discard;
                 var newplayers = []
                 for (var i = 0; i < 5; i++) {
                     var player = new BABYLON.Mesh.CreateBox("sphere1", 4, scene);
-                    player.scaling.y = 3
                     player.setEnabled(false)
                     newplayers.push(player)
                     var rect1 = new BABYLON.GUI.Rectangle();
