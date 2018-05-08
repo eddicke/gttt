@@ -117,6 +117,7 @@
 
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src = "dist/gui.js"></script>
 
     <script>
         var canvas = document.getElementById("renderCanvas");
@@ -165,7 +166,43 @@
                         break;
                 }
             });
+		//GUI-INTERFACE-----------------------------------------><-------------------------------------------
+		var popwind = new GUIWindow()
+var change = true
 
+
+function coo(){
+    
+    if(change){
+        change = false
+        console.log("select")
+        popwind.alpha = 1
+        
+    }else if(!change){
+        change = true
+         popwind.alpha = 0
+    console.log("de-select")
+    
+    }
+
+}
+
+var button = new GUInterface(8, false, 0.8)
+button.interact()
+button.switch()
+button.clear()
+
+function update(){
+var wardrobebutton = button.select(5, "power", coo)
+
+var button2 = new GUInterface(8, true, 0.8, -2)
+button2.interact()
+
+
+var powerupbutton = button2.select(1, "open", coo)
+}
+
+scene.registerBeforeRender(update())
             //////////////********************TERRAIN SCRIPT********************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             var url = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
             var s = document.createElement("script");
