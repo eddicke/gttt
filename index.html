@@ -117,16 +117,16 @@
 
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script src = "dist/gui.js"></script>
+    <script src="dist/gui.js"></script>
 
     <script>
         var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
 
-	    var s = document.createElement("script")
-	    s.src = "https://cdn.rawgit.com/eddicke/chat-example/master/dist/gui.js";
-	    document.body.appendChild(s)
-	    
+        var s = document.createElement("script")
+        s.src = "https://cdn.rawgit.com/eddicke/chat-example/master/dist/gui.js";
+        document.body.appendChild(s)
+
         $(function() {
             var socket = io();
             var user = 0
@@ -170,46 +170,8 @@
                         break;
                 }
             });
-		//GUI-INTERFACE-----------------------------------------><-------------------------------------------
-		/*s.onload = function(){
-		var popwind = new GUIWindow()
-		var change = true
 
 
-		function coo(){
-    
-    		if(change){
-        change = false
-        console.log("select")
-        popwind.alpha = 1
-        
-    }else if(!change){
-        change = true
-         popwind.alpha = 0
-    console.log("de-select")
-    
-    }
-
-}
-
-var button = new GUInterface(8, false, 0.8)
-button.interact()
-button.switch()
-button.clear()
-
-function update(){
-var wardrobebutton = button.select(5, "power", coo)
-
-var button2 = new GUInterface(8, true, 0.8, -2)
-button2.interact()
-
-
-var powerupbutton = button2.select(1, "open", coo)
-}
-
-scene.registerBeforeRender(update())
-		}
-		*/
             //////////////********************TERRAIN SCRIPT********************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             var url = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
             var s = document.createElement("script");
@@ -258,6 +220,47 @@ scene.registerBeforeRender(update())
                 var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
                 skybox.infiniteDistance = true;
                 skybox.material = skyMaterial;
+
+
+                //GUI-INTERFACE-----------------------------------------><-------------------------------------------
+                s.onload = function() {
+                    var popwind = new GUIWindow()
+                    var change = true
+
+
+                    function coo() {
+
+                        if (change) {
+                            change = false
+                            console.log("select")
+                            popwind.alpha = 1
+
+                        } else if (!change) {
+                            change = true
+                            popwind.alpha = 0
+                            console.log("de-select")
+
+                        }
+
+                    }
+
+                    var button = new GUInterface(8, false, 0.8)
+                    button.interact()
+                    button.switch()
+                    button.clear()
+
+                    function update() {
+                        var wardrobebutton = button.select(5, "power", coo)
+
+                        var button2 = new GUInterface(8, true, 0.8, -2)
+                        button2.interact()
+
+
+                        var powerupbutton = button2.select(1, "open", coo)
+                    }
+
+                    scene.registerBeforeRender(update())
+                }
 
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
