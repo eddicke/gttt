@@ -241,13 +241,13 @@
                 terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
 
                 var grass2 = new BABYLON.StandardMaterial("grass2", scene);
-    		grass2.bumpTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_NRM.png", scene);
-    		grass2.diffuseTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_COLOR.png", scene);
-		grass2.ambientTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_OCC.png", scene);
-	
-   	 	grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
-    		grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
-    		grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
+                grass2.bumpTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_NRM.png", scene);
+                grass2.diffuseTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_COLOR.png", scene);
+                grass2.ambientTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/terrainmaterial/sandstone_rock_001_OCC.png", scene);
+
+                grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
+                grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
+                grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
 
 
                 //terrain
@@ -421,8 +421,8 @@ discard;
                     });
 
                 var texture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
-		var normal = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
-		    
+                var normal = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/chat-example/master/assets/textures/thumb_Bowling_grass_pxr128.jpg", scene);
+
                 mat.setTexture("basetexture", texture)
                 mat.setTexture("heightMap", normal)
 
@@ -500,7 +500,7 @@ discard;
                         velocity: speed,
                         rotAxis: rotY
                     })
-                }, 1000/60)
+                }, 1000 / 60)
                 //Array of limited players----------------><-------------------------------------------------------------------
                 setInterval(function() {
                     socket.emit("camera-follow", shft);
@@ -532,16 +532,16 @@ discard;
                     loaded = true
 
                     newMeshes[0].scaling.set(5, 5, 5);
-                    for (var i = 0; i < 5; i++) {
+                    for (var i = 0; i < 20; i++) {
                         for (var k = 0; k < newMeshes.length; k++) {
                             var m = newMeshes[k].createInstance("name" + i)
                             m.scaling.set(1.1, 1.1, 1.1);
-	        	    m.rotation.y = Math.PI;
+                            m.rotation.y = Math.PI;
                             m.position.z = 15 * (i / 4);
                             m.setEnabled(false);
                         }
                     }
-		
+
                     newMeshes[0].setEnabled(false);
                     var action1 = false
                     document.addEventListener("keydown", function(ev) {
@@ -570,11 +570,11 @@ discard;
 
                 //REFERENCE PLAYER---------------------------------------><-------------------------------------
                 var newplayers = []
-                for (var i = 0; i < 5; i++) {
+                for (var i = 0; i < 20; i++) {
                     var player = new BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                     player.setEnabled(false)
-		    player.rotation.y = Math.PI;
-		    player.visibility = 0
+                    player.rotation.y = Math.PI;
+                    player.visibility = 0
                     newplayers.push(player)
                     var rect1 = new BABYLON.GUI.Rectangle();
                     rect1.width = 0.2;
@@ -606,9 +606,9 @@ discard;
                 var camAltitude = 0.0;
                 var nerd = []
                 //direction
-		var rotr = 0
+                var rotr = 0
                 socket.on('directions', function(dirs) {
-			rotr += .05
+                    rotr += .05
                     cnt += 1
                     for (var id in dirs) {
                         var dir = dirs[id];
@@ -626,10 +626,10 @@ discard;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
-					    m.parent = newplayers[dir.rnd]
-					//m.rotation.y = newplayers[dir.rnd].rotation.y
+                                        m.parent = newplayers[dir.rnd]
+                                        //m.rotation.y = newplayers[dir.rnd].rotation.y
                                         //m.rotation.y = dir.rotY;
-                                       // m.position.copyFrom(dir.lastpos)
+                                        // m.position.copyFrom(dir.lastpos)
                                     }
                                 })
                             }
