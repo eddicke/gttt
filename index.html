@@ -591,7 +591,7 @@ discard;
                     rect1.addControl(label);
 
                     rect1.linkWithMesh(player);
-                    rect1.linkOffsetY = -80;
+                    rect1.linkOffsetY = -50;
                     rect1.isVisible = false;
                     labels.push(rect1)
                 }
@@ -627,9 +627,6 @@ discard;
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
                                         m.parent = newplayers[dir.rnd]
-                                        //m.rotation.y = newplayers[dir.rnd].rotation.y
-                                        //m.rotation.y = dir.rotY;
-                                        // m.position.copyFrom(dir.lastpos)
                                     }
                                 })
                             }
