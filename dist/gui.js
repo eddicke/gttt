@@ -54,7 +54,7 @@ var GUInterface = function(num, horizontal, containerheight, zindex) {
     for (var i = 0; i < num; i++) {
         var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "");
         button1.width = "100px"
-        button1.height = "60px";
+        button1.height = "860px";
         if (horizontal) {
             button1.left = 308 * (i / 3) - 250;
             button1.top = 200;
@@ -295,7 +295,7 @@ button.clear()
 function update() {
     var wardrobebutton = button.select(5, "power", coo)
 
-    var button2 = new GUInterface(8, false, 0.8, -2)
+    var button2 = new GUInterface(8, true, 0.8, -2)
     button2.interact()
 
 
