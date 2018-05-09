@@ -265,39 +265,3 @@ GUInterface.prototype.selectAll = function() {
         return this.buttons[i];
     }
 }
-var popwind = new GUIWindow()
-var change = true
-
-
-function coo() {
-
-    if (change) {
-        change = false
-        console.log("select")
-        popwind.alpha = 1
-
-    } else if (!change) {
-        change = true
-        popwind.alpha = 0
-        console.log("de-select")
-
-    }
-}
-
-
-var button = new GUInterface(8, false, 0.8)
-button.interact()
-button.switch()
-button.clear()
-
-function update() {
-    var wardrobebutton = button.select(5, "power", coo)
-
-    var button2 = new GUInterface(8, true, 0.8, -2)
-    button2.interact()
-
-
-    var powerupbutton = button2.select(1, "open", coo)
-}
-
-scene.registerBeforeRender(update())
