@@ -171,7 +171,7 @@ var GUIWindow = function(index1, index2){
         for(var x = 0; x < board[y].length; x++){
             //Draw a wall
             if(board[y][x] === 1){
-  var button1 = new BABYLON.GUI.Rectangle();
+  var button1 = new BABYLON.GUI.Button.CreateImageButton("but", "Click Me", null);
     button1.width = "80px"
     button1.height = "60px";
     button1.left = x*102-100;
