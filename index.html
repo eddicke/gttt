@@ -217,48 +217,8 @@
                 skybox.infiniteDistance = true;
                 skybox.material = skyMaterial;
 
-
-                //GUI-INTERFACE-----------------------------------------><-------------------------------------------
-                gui.onload = function() {
-                   var change = true
-
-
-function coo(){
-    
-    if(change){
-        change = false
-        console.log("select")
-        popwind.alpha = 1
-        
-    }else if(!change){
-        change = true
-         popwind.alpha = 0
-    console.log("de-select")
-    
-    }
-
-}
-
-var button = new GUInterface(8, false, 0.8)
-button.interact()
-button.switch()
-button.clear()
-
-			/*
-function update(){
-var wardrobebutton = button.select(5, "power", coo)
-
-var button2 = new GUInterface(8, true, 0.8, -2)
-button2.interact()
-
-
-var powerupbutton = button2.select(1, "open", coo)
-}
-
-scene.registerBeforeRender(update())
-*/
-                }
-
+		var nitro = 0
+                
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                 sphere.visibility = 0
@@ -529,7 +489,7 @@ discard;
                 var rotY = 0
                 document.addEventListener("keydown", function(ev) {
                     if (ev.which == 32) { // En avant		
-                        speed = -2.5
+                        speed = -2.5+nitro;
                     }
                 })
 
@@ -564,11 +524,59 @@ discard;
                 }
 
                 scene.debugLayer.show();
+		     var labels = []
+		    //GUI-INTERFACE-----------------------------------------><-------------------------------------------
+               gui.onload = function() {
+               var change = true
+		var indicate = true
+		
+		function indicator(){
+			if(indicate){
+        	indicate = false
+				for(var i = 0; i<labels.length; i++){
+					 labels[i].isVisible = false
+				}
+    		}else if(!indicate){
+        		indicate = true
+			for(var i = 0; i<labels.length; i++){
+				 labels[i].isVisible = true	
+				}
+			}
+		}
+		       
+		       
+		function charge(){
+    
+    		if(change){
+        	change = false
+        	nitro = 3.;
+    		}else if(!change){
+        change = true
+         	nitro = 0.;
+    }
+
+}
+
+var button = new GUInterface(8, false, 0.8)
+button.interact()
+button.switch()
+button.clear()
+
+			
+function update(){
+var option1 = button.select(5, "charge", charge)
+var option2 = button.select(6, "indicator", indicator)
+}
+
+scene.registerBeforeRender(update())
+
+                }
+
                 //GUI-----------------------------------------------><------------------------------------------------------
                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 advancedTexture.renderAtIdealSize = true;
                 //CREATE PLAYER LABEL/INDICATOR------------------------------><--------------------------------------------------
-                var labels = []
+               
                 //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
 
                 var skeleton;
