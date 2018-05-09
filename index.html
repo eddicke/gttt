@@ -328,7 +328,7 @@ varying vec2 vUv;
 
 float height(vec2 uv)
 {
-     vec4 bumpData = texture( heightMap, uv );
+     vec4 bumpData = texture2D( heightMap, uv );
     
     float vAmount = (bumpData.r * 256.0 + bumpData.g + bumpData.b / 256.0) ;
     return vAmount;
@@ -386,7 +386,7 @@ varying vec2 vUv;
  
 float height(vec2 uv)
 {
-     vec4 bumpData = texture( heightMap, uv );
+     vec4 bumpData = texture2D( heightMap, uv );
     
     float vAmount = (bumpData.r * 256.0 + bumpData.g + bumpData.b / 256.0) ;
     return vAmount;
