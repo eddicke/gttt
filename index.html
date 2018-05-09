@@ -120,7 +120,7 @@
         var engine = new BABYLON.Engine(canvas, true);
 
         var gui = document.createElement("script")
-        gui.src = "https://rawcdn.githack.com/eddicke/chat-example/master/dist/gui.js";
+        gui.src = "https://gitcdn.xyz/repo/eddicke/chat-example/master/dist/gui.js";
         document.body.appendChild(gui)
 
         $(function() {
@@ -217,8 +217,8 @@
                 skybox.infiniteDistance = true;
                 skybox.material = skyMaterial;
 
-		var nitro = 1
-                
+                var nitro = 1
+
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                 sphere.visibility = 0
@@ -489,7 +489,7 @@ discard;
                 var rotY = 0
                 document.addEventListener("keydown", function(ev) {
                     if (ev.which == 32) { // En avant		
-                        speed = -2.5*nitro;
+                        speed = -2.5 * nitro;
                     }
                 })
 
@@ -524,56 +524,54 @@ discard;
                 }
 
                 scene.debugLayer.show();
-		     var labels = []
-		    //GUI-INTERFACE-----------------------------------------><-------------------------------------------
-               gui.onload = function() {
-		
-		popwind.alpha = 0
-		       
-               var change = true
-		var indicate = true
-		
-		function indicator(){
-			if(indicate){
-        	indicate = false
-				for(var i = 0; i<labels.length; i++){
-					 labels[i].isVisible = false
-					labels[i].alpha = 0
-				}
-    		}else if(!indicate){
-        		indicate = true
-			for(var i = 0; i<labels.length; i++){
-				 labels[i].isVisible = true	
-				labels[i].alpha = 1
-				}
-			}
-		}
-		       
-		       
-		function charge(){
-    
-    		if(change){
-        	change = false
-        	nitro = 3.;
-    		}else if(!change){
-        change = true
-         	nitro = 1.;
-    }
+                var labels = []
+                //GUI-INTERFACE-----------------------------------------><-------------------------------------------
+                gui.onload = function() {
 
-}
+                    var change = true
+                    var indicate = true
 
-var button = new GUInterface(8, false, 0.8)
-button.interact()
-button.switch()
-button.clear()
+                    function indicator() {
+                        if (indicate) {
+                            indicate = false
+                            for (var i = 0; i < labels.length; i++) {
+                                labels[i].isVisible = false
+                                labels[i].alpha = 0
+                            }
+                        } else if (!indicate) {
+                            indicate = true
+                            for (var i = 0; i < labels.length; i++) {
+                                labels[i].isVisible = true
+                                labels[i].alpha = 1
+                            }
+                        }
+                    }
 
-			
-function update(){
-var option1 = button.select(5, "charge", charge)
-var option2 = button.select(6, "indicator", indicator)
-}
 
-scene.registerBeforeRender(update())
+                    function charge() {
+
+                        if (change) {
+                            change = false
+                            nitro = 3.;
+                        } else if (!change) {
+                            change = true
+                            nitro = 1.;
+                        }
+
+                    }
+
+                    var button = new GUInterface(8, false, 0.8)
+                    button.interact()
+                    button.switch()
+                    button.clear()
+
+
+                    function update() {
+                        var option1 = button.select(5, "charge", charge)
+                        var option2 = button.select(6, "indicator", indicator)
+                    }
+
+                    scene.registerBeforeRender(update())
 
                 }
 
@@ -581,7 +579,7 @@ scene.registerBeforeRender(update())
                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 advancedTexture.renderAtIdealSize = true;
                 //CREATE PLAYER LABEL/INDICATOR------------------------------><--------------------------------------------------
-               
+
                 //CREATE MECHS HOORAY!!-------------------------------------------><----------------------------
 
                 var skeleton;
