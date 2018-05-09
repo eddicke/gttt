@@ -51,7 +51,7 @@ var GUInterface = function(num, horizontal, containerheight, zindex) {
     this.background = background
     for (var i = 0; i < num; i++) {
         var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "");
-        button1.width = "100px"
+        button1.width = "70px"
         button1.height = "60px";
         if (horizontal) {
             button1.left = 308 * (i / 3) - 250;
@@ -69,7 +69,7 @@ var GUInterface = function(num, horizontal, containerheight, zindex) {
         } else {
 
 
-            button1.width = "700px"
+            button1.width = "70px"
             button1.alpha = 0
             button1.height = "30px";
             button1.top = 100 * (i / 3) - 250;
