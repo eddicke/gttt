@@ -156,7 +156,7 @@ var GUIWindow = function() {
     background.cornerRadius = 5;
     background.background = "silver";
     background.top = -100
-    background.alpha = 1.
+    background.alpha = 1
     this.window = background
     advancedTexture.addControl(this.window);
 
