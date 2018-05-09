@@ -124,7 +124,7 @@
         var engine = new BABYLON.Engine(canvas, true);
 
         var gui = document.createElement("script")
-        gui.src = "https://cdn.rawgit.com/eddicke/chat-example/master/dist/gui.js";
+        gui.src = "https://rawgit.com/eddicke/chat-example/master/dist/gui.js";
         document.body.appendChild(gui)
 
         $(function() {
@@ -224,43 +224,41 @@
 
                 //GUI-INTERFACE-----------------------------------------><-------------------------------------------
                 gui.onload = function() {
-                    var popwind = new GUIWindow()
-                    var change = true
+                   var change = true
 
 
-                    function coo() {
+function coo(){
+    
+    if(change){
+        change = false
+        console.log("select")
+        popwind.alpha = 1
+        
+    }else if(!change){
+        change = true
+         popwind.alpha = 0
+    console.log("de-select")
+    
+    }
 
-                        if (change) {
-                            change = false
-                            console.log("select")
-                            popwind.alpha = 1
+}
 
-                        } else if (!change) {
-                            change = true
-                            popwind.alpha = 0
-                            console.log("de-select")
+var button = new GUInterface(8, false, 0.8)
+button.interact()
+button.switch()
+button.clear()
 
-                        }
-                    }
+function update(){
+var wardrobebutton = button.select(5, "power", coo)
 
-
-                    var button = new GUInterface(8, false, 0.8)
-                    button.interact()
-                    button.switch()
-                    button.clear()
-
-                    function update() {
-                        var wardrobebutton = button.select(5, "power", coo)
-
-                        var button2 = new GUInterface(8, true, 20.8, -32)
-                        button2.interact()
+var button2 = new GUInterface(8, true, 0.8, -2)
+button2.interact()
 
 
-                        var powerupbutton = button2.select(1, "open", coo)
-                    }
+var powerupbutton = button2.select(1, "open", coo)
+}
 
-                    scene.registerBeforeRender(update())
-
+scene.registerBeforeRender(update())
                 }
 
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
