@@ -145,6 +145,7 @@ background.width = .6
 
    
 }
+/*
 var GUIWindow = function(index1, index2){
     var rows = []
     var background = new BABYLON.GUI.Rectangle();
@@ -203,7 +204,7 @@ alert("oh yea yea")
     return this.window
 }
 
-
+*/
 //var popwind = new GUIWindow(0, 0)
 
 GUInterface.prototype.switch = function(){
