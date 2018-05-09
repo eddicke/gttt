@@ -204,7 +204,7 @@ alert("oh yea yea")
 }
 
 
-var popwind = new GUIWindow(0, 0)
+//var popwind = new GUIWindow(0, 0)
 
 GUInterface.prototype.switch = function(){
     var background = this.background
