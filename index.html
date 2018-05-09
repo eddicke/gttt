@@ -217,7 +217,7 @@
                 skybox.infiniteDistance = true;
                 skybox.material = skyMaterial;
 
-		var nitro = 0
+		var nitro = 1
                 
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
@@ -489,7 +489,7 @@ discard;
                 var rotY = 0
                 document.addEventListener("keydown", function(ev) {
                     if (ev.which == 32) { // En avant		
-                        speed = -2.5+nitro;
+                        speed = -2.5*nitro;
                     }
                 })
 
@@ -527,6 +527,9 @@ discard;
 		     var labels = []
 		    //GUI-INTERFACE-----------------------------------------><-------------------------------------------
                gui.onload = function() {
+		
+		popwind.alpha = 0
+		       
                var change = true
 		var indicate = true
 		
@@ -535,11 +538,13 @@ discard;
         	indicate = false
 				for(var i = 0; i<labels.length; i++){
 					 labels[i].isVisible = false
+					labels[i].alpha = 0
 				}
     		}else if(!indicate){
         		indicate = true
 			for(var i = 0; i<labels.length; i++){
 				 labels[i].isVisible = true	
+				labels[i].alpha = 1
 				}
 			}
 		}
@@ -552,7 +557,7 @@ discard;
         	nitro = 3.;
     		}else if(!change){
         change = true
-         	nitro = 0.;
+         	nitro = 1.;
     }
 
 }
