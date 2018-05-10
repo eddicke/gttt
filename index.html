@@ -183,7 +183,17 @@
 
                 // This creates a basic Babylon Scene object (non-mesh)
                 var scene = new BABYLON.Scene(engine);
-
+		//LOADING UI---------------------------------------><------------------------------------------------
+		    	// animation : progress indicator
+			engine.displayLoadingUI();
+			engine.loadingUIText = "wAIT...";
+		    var percentage = 0
+		    setInterval(function(){
+			    percentage += 1;
+			    engine.loadingUIText = "LOADING ASSETS..."+percentage;
+		    }, 1000)
+		    
+		    //CAMERA-------------------------------------><------------------------------------------
                 var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
                 camera.attachControl(canvas, true);
                 camera.setPosition(new BABYLON.Vector3(0, 10 * 2, -20 * 2));
@@ -601,6 +611,8 @@ discard;
                     loaded = true
 
                     newMeshes[0].scaling.set(5, 5, 5);
+			engine.hideLoadingUI();
+			
                     for (var i = 0; i < 20; i++) {
                         for (var k = 0; k < newMeshes.length; k++) {
                             var m = newMeshes[k].createInstance("name" + i)
