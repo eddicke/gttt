@@ -251,7 +251,73 @@
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                 sphere.visibility = 0
+		    //BLOCKS-------------------------------------------------------><------------------------------------
+		//BUILDING BLOCKS--------------------------------><-----------------------------------------------
+		    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    var row = 5
+    var column = 5
+    var blocks = new Array()
 
+    var parts = []
+    for(var x = 0; x<row; x++){
+        blocks[x] = []
+        for(var y = 0; y<column; y++){
+           // blocks[x][y] = 0
+          //  var bdb = new BABYLON.Mesh.CreateBox("building blocks", 2, scene)
+         //   bdb.position.set(x*3, 0, y*3)
+        
+          var button = BABYLON.GUI.Button.CreateImageButton("but", "Block", null);
+    button.width = 0.1;
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+    button.alpha = .4
+    button.top = (y*104)-200
+    button.left = (x*104)-305
+    button.xpos = x*4
+    button.zpos = y*3
+    button.rows = 0
+    button.onPointerDownObservable.add(function() {
+
+    })
+    advancedTexture.addControl(button);
+
+            parts.push(button)
+        }
+    }
+
+function createBlock(xpos, zpos, ypos){
+    var block = new BABYLON.Mesh.CreateBox("block", 2, scene)
+    block.scaling.y = .4
+    block.scaling.x = 2
+    block.scaling.z = 1.5
+    block.position.x = xpos
+    block.position.z = zpos
+    block.position.y = ypos
+    return block;
+}
+
+var blocks = []
+    parts.forEach(function(m){
+        m.onPointerDownObservable.add(function() {
+            console.log(m.xpos)
+        m.background = "yellow";
+        m.rows += .8
+        var bl1 = new createBlock(m.xpos, m.zpos, m.rows)
+    blocks.push(bl1)
+        })
+    })
+
+    var rustyironMat = new BABYLON.StandardMaterial("texture3", scene);
+   rustyironMat.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/2011-06-11-09560.jpg", scene);
+
+
+    document.addEventListener("keydown", function(ev){
+        if(ev.which == 16){
+            var blk = new BABYLON.Mesh.MergeMeshes(blocks)
+            blk.material = rustyironMat
+        }
+    })
                 //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
                 //TERRAIN MATERIAL-------------------------------------------------------><----------------------------
                 // Create terrain material
