@@ -257,7 +257,7 @@
     var row = 5
     var column = 5
     var blocks = new Array()
-
+	var d = 3
     var parts = []
     for(var x = 0; x<row; x++){
         blocks[x] = []
@@ -274,8 +274,8 @@
     button.alpha = .4
     button.top = (y*104)-200
     button.left = (x*104)-305
-    button.xpos = x*2
-    button.zpos = y*2
+    button.xpos = x*(3*d)
+    button.zpos = y*(4*d)
     button.rows = 0
     button.onPointerDownObservable.add(function() {
 
