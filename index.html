@@ -257,7 +257,8 @@
     var row = 5
     var column = 5
     var blocks = new Array()
-	var d = 4
+	var d = 4;
+		    var buttons = []
     var parts = []
     for(var x = 0; x<row; x++){
         blocks[x] = []
@@ -277,6 +278,8 @@
     button.xpos = x*(3*d)
     button.zpos = y*(4*d)
     button.rows = 0
+		button.isVisible = false
+		buttons.push(button)
     button.onPointerDownObservable.add(function() {
 
     })
@@ -286,6 +289,35 @@
         }
     }
 
+    var buildButton = BABYLON.GUI.Button.CreateImageButton("but", "Build", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/copper-hi.png");
+    buildButton.width = .2;
+    buildButton.top = 300
+    buildButton.height = "40px";
+    buildButton.color = "white";
+    buildButton.background = "blue";
+    buildButton.alpha = .4
+    advancedTexture.addControl(buildButton);
+    var build = false
+    buildButton.onPointerDownObservable.add(function() {
+    
+       if(build === true){
+           build = false
+       }else if(build === false){
+           build = true
+       }
+       if(build){
+        buttons.forEach(function(button){
+            button.isVisible = true
+        })
+       }
+       if(!build){
+              buttons.forEach(function(button){
+            button.isVisible = false
+        })
+       }
+    })
+		    
+		    
 function createBlock(xpos, zpos, ypos){
     var block = new BABYLON.Mesh.CreateBox("block", 2, scene)
     block.scaling.y = .4
