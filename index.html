@@ -313,7 +313,7 @@ var blocks = []
 
 
     document.addEventListener("keydown", function(ev){
-        if(ev.which == 16){
+        if(ev.which == 66){
             var blk = new BABYLON.Mesh.MergeMeshes(blocks)
             blk.material = rustyironMat
         }
@@ -663,7 +663,7 @@ discard;
                     cameras.push(cam)
                 }
 
-                scene.debugLayer.show();
+               // scene.debugLayer.show();
                 var labels = []
                 //GUI-INTERFACE-----------------------------------------><-------------------------------------------
                 gui.onload = function() {
