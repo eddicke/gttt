@@ -2,7 +2,7 @@
 //Creation of a material with an alpha texture
 
 
-var createPalmfrond = function(material, scene) {
+var createPalmfrond = function(scene) {
     var paths = [];
     for (var t = 1; t < 10; t++) {
         var path = [];
