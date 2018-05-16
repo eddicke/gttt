@@ -178,9 +178,9 @@
             var s2 = document.createElement("script");
             s2.src = url;
             document.head.appendChild(s2);
-		
-	    var url2 = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
-	    var s3 = document.createElement("script");
+
+            var url2 = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
+            var s3 = document.createElement("script");
             s3.src = url2;
             document.head.appendChild(s3);
             //////***********BABYLONJS CODE************|||||||||||||||||
@@ -188,17 +188,17 @@
 
                 // This creates a basic Babylon Scene object (non-mesh)
                 var scene = new BABYLON.Scene(engine);
-		//LOADING UI---------------------------------------><------------------------------------------------
-		    	// animation : progress indicator
-			engine.displayLoadingUI();
-			engine.loadingUIText = "Wait...";
-		    var percentage = 0
-		    setInterval(function(){
-			    percentage += 1;
-			    engine.loadingUIText = "Loading assets..."+percentage+"%";
-		    }, 1000)
-		    
-		    //CAMERA-------------------------------------><------------------------------------------
+                //LOADING UI---------------------------------------><------------------------------------------------
+                // animation : progress indicator
+                engine.displayLoadingUI();
+                engine.loadingUIText = "Wait...";
+                var percentage = 0
+                setInterval(function() {
+                    percentage += 1;
+                    engine.loadingUIText = "Loading assets..." + percentage + "%";
+                }, 1000)
+
+                //CAMERA-------------------------------------><------------------------------------------
                 var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
                 camera.attachControl(canvas, true);
                 camera.setPosition(new BABYLON.Vector3(0, 10 * 2, -20 * 2));
@@ -231,127 +231,129 @@
                 var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
                 skybox.infiniteDistance = true;
                 skybox.material = skyMaterial;*/
-		    
-		     var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:5000.0}, scene);
+
+                var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {
+                    size: 5000.0
+                }, scene);
                 var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
                 skyboxMaterial.backFaceCulling = false;
                 skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("http://www.babylonjs-playground.com/textures/skybox", scene);
                 skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
                 skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
                 skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-                skybox.material = skyboxMaterial;			
-	              skybox.infiniteDistance = true
-                scene.registerBeforeRender(function(){
-                skybox.rotation.y +=.001
-               })
-		    
+                skybox.material = skyboxMaterial;
+                skybox.infiniteDistance = true
+                scene.registerBeforeRender(function() {
+                    skybox.rotation.y += .001
+                })
+
 
                 var nitro = 1
 
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
                 sphere.visibility = 0
-		    //BLOCKS-------------------------------------------------------><------------------------------------
-		//BUILDING BLOCKS--------------------------------><-----------------------------------------------
-		    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-		    advancedTexture.renderAtIdealSize = true;
-    var row = 5
-    var column = 5
-    var blocks = new Array()
-	var d = 9;
-		    var buttons = []
-    var parts = []
-    for(var x = 0; x<row; x++){
-        blocks[x] = []
-        for(var y = 0; y<column; y++){
-           // blocks[x][y] = 0
-          //  var bdb = new BABYLON.Mesh.CreateBox("building blocks", 2, scene)
-         //   bdb.position.set(x*3, 0, y*3)
-        
-          var button = BABYLON.GUI.Button.CreateImageButton("but", "Block", null);
-    button.width = 0.1;
-    button.height = "40px";
-    button.color = "white";
-    button.background = "green";
-    button.alpha = .4
-    button.top = (y*104)-200
-    button.left = (x*104)-305
-    button.xpos = x*(3*d)
-    button.zpos = y*(4*d)
-    button.rows = 0
-		button.isVisible = false
-		buttons.push(button)
-    button.onPointerDownObservable.add(function() {
+                //BLOCKS-------------------------------------------------------><------------------------------------
+                //BUILDING BLOCKS--------------------------------><-----------------------------------------------
+                var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+                advancedTexture.renderAtIdealSize = true;
+                var row = 5
+                var column = 5
+                var blocks = new Array()
+                var d = 9;
+                var buttons = []
+                var parts = []
+                for (var x = 0; x < row; x++) {
+                    blocks[x] = []
+                    for (var y = 0; y < column; y++) {
+                        // blocks[x][y] = 0
+                        //  var bdb = new BABYLON.Mesh.CreateBox("building blocks", 2, scene)
+                        //   bdb.position.set(x*3, 0, y*3)
 
-    })
-    advancedTexture.addControl(button);
+                        var button = BABYLON.GUI.Button.CreateImageButton("but", "Block", null);
+                        button.width = 0.1;
+                        button.height = "40px";
+                        button.color = "white";
+                        button.background = "green";
+                        button.alpha = .4
+                        button.top = (y * 104) - 200
+                        button.left = (x * 104) - 305
+                        button.xpos = x * (3 * d)
+                        button.zpos = y * (4 * d)
+                        button.rows = 0
+                        button.isVisible = false
+                        buttons.push(button)
+                        button.onPointerDownObservable.add(function() {
 
-            parts.push(button)
-        }
-    }
+                        })
+                        advancedTexture.addControl(button);
 
-    var buildButton = BABYLON.GUI.Button.CreateImageButton("but", "Build", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/copper-hi.png");
-    buildButton.width = .2;
-    buildButton.top = 300
-    buildButton.height = "40px";
-    buildButton.color = "white";
-    buildButton.background = "blue";
-    buildButton.alpha = .4
-    advancedTexture.addControl(buildButton);
-    var build = false
-    buildButton.onPointerDownObservable.add(function() {
-    
-       if(build === true){
-           build = false
-       }else if(build === false){
-           build = true
-       }
-       if(build){
-        buttons.forEach(function(button){
-            button.isVisible = true
-        })
-       }
-       if(!build){
-              buttons.forEach(function(button){
-            button.isVisible = false
-        })
-       }
-    })
-		    
-		    
-function createBlock(xpos, zpos, ypos){
-    var block = new BABYLON.Mesh.CreateBox("block", 2, scene)
-    block.scaling.y = .4
-    block.scaling.x = 2
-    block.scaling.z = 1.5
-    block.position.x = xpos
-    block.position.z = zpos
-    block.position.y = ypos
-    return block;
-}
+                        parts.push(button)
+                    }
+                }
 
-var blocks = []
-    parts.forEach(function(m){
-        m.onPointerDownObservable.add(function() {
-            console.log(m.xpos)
-        m.background = "yellow";
-        m.rows += 4;
-        var bl1 = new createBlock(m.xpos, m.zpos, m.rows)
-	bl1.scaling.set(30, 10, 30);
-    blocks.push(bl1)
-        })
-    })
+                var buildButton = BABYLON.GUI.Button.CreateImageButton("but", "Build", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/copper-hi.png");
+                buildButton.width = .2;
+                buildButton.top = 300
+                buildButton.height = "40px";
+                buildButton.color = "white";
+                buildButton.background = "blue";
+                buildButton.alpha = .4
+                advancedTexture.addControl(buildButton);
+                var build = false
+                buildButton.onPointerDownObservable.add(function() {
 
-    var rustyironMat = new BABYLON.StandardMaterial("texture3", scene);
-   rustyironMat.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/2011-06-11-09560.jpg", scene);
+                    if (build === true) {
+                        build = false
+                    } else if (build === false) {
+                        build = true
+                    }
+                    if (build) {
+                        buttons.forEach(function(button) {
+                            button.isVisible = true
+                        })
+                    }
+                    if (!build) {
+                        buttons.forEach(function(button) {
+                            button.isVisible = false
+                        })
+                    }
+                })
 
 
-    document.addEventListener("keydown", function(ev){
-        if(ev.which == 66){
-            var blk = new BABYLON.Mesh.MergeMeshes(blocks)
-            blk.material = rustyironMat
-        }
-    })
+                function createBlock(xpos, zpos, ypos) {
+                    var block = new BABYLON.Mesh.CreateBox("block", 2, scene)
+                    block.scaling.y = .4
+                    block.scaling.x = 2
+                    block.scaling.z = 1.5
+                    block.position.x = xpos
+                    block.position.z = zpos
+                    block.position.y = ypos
+                    return block;
+                }
+
+                var blocks = []
+                parts.forEach(function(m) {
+                    m.onPointerDownObservable.add(function() {
+                        console.log(m.xpos)
+                        m.background = "yellow";
+                        m.rows += 4;
+                        var bl1 = new createBlock(m.xpos, m.zpos, m.rows)
+                        bl1.scaling.set(30, 10, 30);
+                        blocks.push(bl1)
+                    })
+                })
+
+                var rustyironMat = new BABYLON.StandardMaterial("texture3", scene);
+                rustyironMat.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/chat-example/master/assets/textures/2011-06-11-09560.jpg", scene);
+
+
+                document.addEventListener("keydown", function(ev) {
+                    if (ev.which == 66) {
+                        var blk = new BABYLON.Mesh.MergeMeshes(blocks)
+                        blk.material = rustyironMat
+                    }
+                })
                 //TERRAIN PROCEDURAL GENERATION---------------------------------------><---------------------------
                 //TERRAIN MATERIAL-------------------------------------------------------><----------------------------
                 // Create terrain material
@@ -381,19 +383,19 @@ var blocks = []
                 grass2.diffuseTexture.uScale = grass2.diffuseTexture.vScale = 10
                 grass2.bumpTexture.uScale = grass2.bumpTexture.vScale = 10
                 grass2.ambientTexture.uScale = grass2.ambientTexture.vScale = 10
-		//WATER MATERIAL -----------------------------------------------><--------------------------------------
-		// Water
-		var waterMesh = new BABYLON.Mesh.CreateDisc("poly",512, 8, scene)
-    		waterMesh.rotation.x = Math.PI/2
-		var water = new BABYLON.WaterMaterial("water", scene, new BABYLON.Vector2(512, 512));
-		water.backFaceCulling = true;
-		water.bumpTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/waterbump.png", scene);
-		water.windForce = -5;
-		water.waveHeight = 0.2;
-		water.bumpHeight = 0.05;
-		water.waterColor = new BABYLON.Color3(0.047, 0.23, 0.015);
-		water.colorBlendFactor = 0.5;
-		waterMesh.position.y = 6
+                //WATER MATERIAL -----------------------------------------------><--------------------------------------
+                // Water
+                var waterMesh = new BABYLON.Mesh.CreateDisc("poly", 512, 8, scene)
+                waterMesh.rotation.x = Math.PI / 2
+                var water = new BABYLON.WaterMaterial("water", scene, new BABYLON.Vector2(512, 512));
+                water.backFaceCulling = true;
+                water.bumpTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/waterbump.png", scene);
+                water.windForce = -5;
+                water.waveHeight = 0.2;
+                water.bumpHeight = 0.05;
+                water.waterColor = new BABYLON.Color3(0.047, 0.23, 0.015);
+                water.colorBlendFactor = 0.5;
+                waterMesh.position.y = 6
                 //TERRAIN--------------------------------------------------><-----------------------------------------------
 
                 var mapSubX = 1000; // point number on X axis
@@ -440,43 +442,43 @@ var blocks = []
                     terrain.subToleranceZ = 5;
                     terrainCreated = true;
                     terrain.update(true);
-		    water.addToRenderList(skybox);
-		    water.addToRenderList(terrain.mesh);
-		    waterMesh.material = water;
+                    water.addToRenderList(skybox);
+                    water.addToRenderList(terrain.mesh);
+                    waterMesh.material = water;
 
                 }
-		
-		//PROCEDURAL LOD GROUND------------------------------><---------------------------------------
-		
-    s3.onload = function() {
-        var mapSubX = 36;
-        var mapSubZ = 36;
-        var terrainSub = 150;
 
-        var mapData = new Float32Array(mapSubX * mapSubZ * 3);   
-        for (var l = 0; l < mapSubZ; l++) {           
-            for (var w = 0; w < mapSubX; w++) {                
-                mapData[3 *(l * mapSubX + w)] = (w - mapSubX * 0.5) * 42.0;
-                mapData[3 * (l * mapSubX + w) + 1] = 0;
-                mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 42.0;
-           }            
-        }
-        var params = {
-            mapData: mapData,
-            mapSubX: mapSubX,
-            mapSubZ: mapSubZ,
-            terrainSub: terrainSub
-        };
-        var terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
-        terrain.mesh.position.y = 5;
-       	var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
-	groundMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/ert/master/assets/textures/terrainmaterial/DeadGrass_512.png", scene);
-	groundMaterial.diffuseTexture.uScale = 36;
-	groundMaterial.diffuseTexture.vScale = 36;  
+                //PROCEDURAL LOD GROUND------------------------------><---------------------------------------
 
-    terrain.mesh.material = groundMaterial
+                s3.onload = function() {
+                    var mapSubX = 36;
+                    var mapSubZ = 36;
+                    var terrainSub = 150;
 
-    };
+                    var mapData = new Float32Array(mapSubX * mapSubZ * 3);
+                    for (var l = 0; l < mapSubZ; l++) {
+                        for (var w = 0; w < mapSubX; w++) {
+                            mapData[3 * (l * mapSubX + w)] = (w - mapSubX * 0.5) * 42.0;
+                            mapData[3 * (l * mapSubX + w) + 1] = 0;
+                            mapData[3 * (l * mapSubX + w) + 2] = (l - mapSubZ * 0.5) * 42.0;
+                        }
+                    }
+                    var params = {
+                        mapData: mapData,
+                        mapSubX: mapSubX,
+                        mapSubZ: mapSubZ,
+                        terrainSub: terrainSub
+                    };
+                    var terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
+                    terrain.mesh.position.y = 5;
+                    var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+                    groundMaterial.diffuseTexture = new BABYLON.Texture("https://raw.githubusercontent.com/eddicke/ert/master/assets/textures/terrainmaterial/DeadGrass_512.png", scene);
+                    groundMaterial.diffuseTexture.uScale = 36;
+                    groundMaterial.diffuseTexture.vScale = 36;
+
+                    terrain.mesh.material = groundMaterial
+
+                };
                 //GRASS PROCEDURAL GENERATION--------------------------------><----------------------------------------------
                 //GRASS------------><--------------------------
                 BABYLON.Effect.ShadersStore["customVertexShader"] =
@@ -502,7 +504,7 @@ varying vec2 vUv;
 
 float height(vec2 uv)
 {
-     vec4 bumpData = texture( heightMap, uv );
+     vec4 bumpData = texture2D( heightMap, uv );
     
     float vAmount = (bumpData.r * 256.0 + bumpData.g + bumpData.b / 256.0) ;
     return vAmount;
@@ -697,7 +699,7 @@ discard;
                     cameras.push(cam)
                 }
 
-               // scene.debugLayer.show();
+                // scene.debugLayer.show();
                 var labels = []
                 //GUI-INTERFACE-----------------------------------------><-------------------------------------------
                 gui.onload = function() {
@@ -762,8 +764,8 @@ discard;
                     loaded = true
 
                     newMeshes[0].scaling.set(5, 5, 5);
-			engine.hideLoadingUI();
-			
+                    engine.hideLoadingUI();
+
                     for (var i = 0; i < 20; i++) {
                         for (var k = 0; k < newMeshes.length; k++) {
                             var m = newMeshes[k].createInstance("name" + i)
@@ -875,7 +877,7 @@ discard;
                                 if (terrainCreated) {
                                     playerAltitude = terrain.getHeightFromMap(newplayers[dir.rnd].position.x, newplayers[dir.rnd].position.z) + playerElevation;
                                     newplayers[dir.rnd].position.y = playerAltitude;
-				    sphere.position.y = playerAltitude;
+                                    sphere.position.y = playerAltitude;
                                     camAltitude = terrain.getHeightFromMap(camera.target.x, camera.target.z) + camElevation;
                                     camera.target.y = camAltitude;
 
