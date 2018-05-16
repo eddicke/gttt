@@ -254,6 +254,7 @@
 		    //BLOCKS-------------------------------------------------------><------------------------------------
 		//BUILDING BLOCKS--------------------------------><-----------------------------------------------
 		    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+		    advancedTexture.renderAtIdealSize = true.
     var row = 5
     var column = 5
     var blocks = new Array()
@@ -501,7 +502,7 @@ varying vec2 vUv;
 
 float height(vec2 uv)
 {
-     vec4 bumpData = texture2D( heightMap, uv );
+     vec4 bumpData = texture( heightMap, uv );
     
     float vAmount = (bumpData.r * 256.0 + bumpData.g + bumpData.b / 256.0) ;
     return vAmount;
