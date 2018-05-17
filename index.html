@@ -110,7 +110,7 @@
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
     <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-    <script src = "https://raw.githack.com/eddicke/chat-example/master/dist/palmfronds.js"></script>
+    <script src="https://raw.githack.com/eddicke/chat-example/master/dist/palmfronds.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="dist/gui.js"></script>
@@ -206,7 +206,7 @@
                 camera.keysDown = [];
                 camera.upperBetaLimit = 1.5
                 camera.lowerBetaLimit = .5
-               /* // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+                /* // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
                   var light = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 3, 2), scene);
     		  light.intensity = 1.2;
              
@@ -217,26 +217,26 @@
 		  light2.position = camera.position
                   })
 		    */
-		    
-		    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
-    // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 0.7;
+                // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+                var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
-		    var lightmap = []
-		  var light2 = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 3, 2), scene);
-    		  light2.intensity = 1.2;
-             scene.registerBeforeRender(function(){
-		  light2.position = camera.target
-                  })
-		     // ILLUMINATE THE PLAYER--------------------><-------------------------------------
-    		//  var light2 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-    		//  light2.intensity = 0.7;
-		    
+                // Default intensity is 1. Let's dim the light a small amount
+                light.intensity = 0.7;
+
+                var lightmap = []
+                var light2 = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 3, 2), scene);
+                light2.intensity = 1.2;
+                scene.registerBeforeRender(function() {
+                    light2.position = camera.target
+                })
+                // ILLUMINATE THE PLAYER--------------------><-------------------------------------
+                //  var light2 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+                //  light2.intensity = 0.7;
+
                 //SKYBOX-----------><---------------------------------------------
                 //sky
-                /*var skyMaterial = new BABYLON.SkyMaterial("skyMaterial", scene);
+                var skyMaterial = new BABYLON.SkyMaterial("skyMaterial", scene);
                 skyMaterial.backFaceCulling = false;
                 skyMaterial.turbidity = 1;
                 skyMaterial.luminance = 1;
@@ -251,11 +251,11 @@
 
                 skyMaterial.mieCoefficient = 0.05; // The mieCoefficient in interval [0, 0.1], affects the property skyMaterial.mieDirectionalG
 
-                var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
+                var skybox = BABYLON.Mesh.CreateBox("skyBox", 5000.0, scene);
                 skybox.infiniteDistance = true;
-                skybox.material = skyMaterial;*/
+                skybox.material = skyMaterial;
 
-                var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {
+                /*var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {
                     size: 5000.0
                 }, scene);
                 var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
@@ -269,10 +269,10 @@
                 scene.registerBeforeRender(function() {
                     skybox.rotation.y += .001
                 })
-
-		//LET'S LOAD THE PALMFRONDS-----------------------------------------------><-----------------------------------
- 			var palmfrond = new createPalmfrond(scene)
-		//////////////////-----------------------------------------------------><-------------------------
+*/
+                //LET'S LOAD THE PALMFRONDS-----------------------------------------------><-----------------------------------
+                var palmfrond = new createPalmfrond(scene)
+                //////////////////-----------------------------------------------------><-------------------------
                 var nitro = 1
                 //PSEUDO-IMPOSTOR--------------------------><-----------------------------
                 var sphere = BABYLON.Mesh.CreateBox("sphere1", 4, scene);
@@ -462,8 +462,8 @@
                     }
                     terrain = new BABYLON.DynamicTerrain("t", params, scene);
                     terrain.mesh.material = grass2;
-		    lightmap.push(terrain.mesh)
-		  
+                    lightmap.push(terrain.mesh)
+
                     terrain.subToleranceX = 10;
                     terrain.subToleranceZ = 5;
                     terrainCreated = true;
@@ -497,7 +497,7 @@
                     };
                     var terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
                     terrain.mesh.position.y = 5;
-		    lightmap.push(terrain.mesh)
+                    lightmap.push(terrain.mesh)
                     var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
                     groundMaterial.diffuseTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/ert/master/assets/textures/terrainmaterial/DeadGrass_512.png", scene);
                     groundMaterial.diffuseTexture.uScale = 36;
@@ -657,9 +657,9 @@ discard;
                     GRASSLAND.mesh.scaling.y = 5
                     GRASSLAND.mesh.alwaysSelectAsActiveMesh = true
                     GRASSLAND.mesh.material = mat;
-		    lightmap.push(GRASSLAND.mesh);
-		    light2.includedOnlyMeshes = lightmap
-		    light.excludedMeshes = lightmap
+                    lightmap.push(GRASSLAND.mesh);
+                    light2.includedOnlyMeshes = lightmap
+                    light.excludedMeshes = lightmap
                     var threshold = 0
                     scene.onAfterCameraRenderObservable.add(function() {
                         threshold += .02
@@ -795,15 +795,15 @@ discard;
 
                     newMeshes[0].scaling.set(5, 5, 5);
                     engine.hideLoadingUI();
-			
-			light.excludedMeshes = [newMeshes[0]]
+
+                    light.excludedMeshes = [newMeshes[0]]
                     for (var i = 0; i < 20; i++) {
                         for (var k = 0; k < newMeshes.length; k++) {
                             var m = newMeshes[k].createInstance("name" + i)
                             m.scaling.set(1.1, 1.1, 1.1);
                             m.rotation.y = Math.PI;
                             m.position.z = 15 * (i / 4);
-			   light.excludedMeshes = [m]
+                            light.excludedMeshes = [m]
                             m.setEnabled(false);
                         }
                     }
@@ -841,7 +841,7 @@ discard;
                     player.setEnabled(false)
                     player.rotation.y = Math.PI;
                     player.visibility = 0
-		   light.excludedMeshes = [player]
+                    light.excludedMeshes = [player]
                     newplayers.push(player)
                     var rect1 = new BABYLON.GUI.Rectangle();
                     rect1.width = 0.2;
@@ -884,7 +884,7 @@ discard;
                             original.push(dir.rnd)
                             console.log("this is random" + dir.rnd);
                             newplayers[dir.rnd].setEnabled(true);
-				light.excludedMeshes = [newplayers[dir.rnd]]
+                            light.excludedMeshes = [newplayers[dir.rnd]]
                             //CALL THE MECH TO THE SCENE-------------------><--------------------------------------
                             if (loaded) {
                                 labels[dir.rnd].isVisible = true
@@ -892,7 +892,7 @@ discard;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
-					light.excludedMeshes = [m]
+                                        light.excludedMeshes = [m]
                                         m.parent = newplayers[dir.rnd]
                                     }
                                 })
