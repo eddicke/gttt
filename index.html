@@ -830,7 +830,7 @@ discard;
                     player.setEnabled(false)
                     player.rotation.y = Math.PI;
                     player.visibility = 0
-		   
+		   light.excludedMeshes = [player]
                     newplayers.push(player)
                     var rect1 = new BABYLON.GUI.Rectangle();
                     rect1.width = 0.2;
@@ -873,7 +873,7 @@ discard;
                             original.push(dir.rnd)
                             console.log("this is random" + dir.rnd);
                             newplayers[dir.rnd].setEnabled(true);
-
+				light.excludedMeshes = [newplayers[dir.rnd]]
                             //CALL THE MECH TO THE SCENE-------------------><--------------------------------------
                             if (loaded) {
                                 labels[dir.rnd].isVisible = true
