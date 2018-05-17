@@ -456,6 +456,7 @@
                     }
                     terrain = new BABYLON.DynamicTerrain("t", params, scene);
                     terrain.mesh.material = grass2;
+			light.excludedMeshes = [terrain.mesh]
                     terrain.subToleranceX = 10;
                     terrain.subToleranceZ = 5;
                     terrainCreated = true;
