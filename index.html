@@ -820,6 +820,8 @@ discard;
                     player.setEnabled(false)
                     player.rotation.y = Math.PI;
                     player.visibility = 0
+		    light2.includedOnlyMeshes = [player];
+		    light.excludedMeshes= [player]
                     newplayers.push(player)
                     var rect1 = new BABYLON.GUI.Rectangle();
                     rect1.width = 0.2;
