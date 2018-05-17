@@ -880,7 +880,7 @@ discard;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
-					
+					light.excludedMeshes = [m]
                                         m.parent = newplayers[dir.rnd]
                                     }
                                 })
