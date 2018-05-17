@@ -213,6 +213,11 @@
                   scene.registerBeforeRender(function(){
                   light.position = camera.position
                   })
+		    
+		     // ILLUMINATE THE PLAYER--------------------><-------------------------------------
+    		  var light2 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+    		  light2.intensity = 0.7;
+		    
                 //SKYBOX-----------><---------------------------------------------
                 //sky
                 /*var skyMaterial = new BABYLON.SkyMaterial("skyMaterial", scene);
@@ -862,6 +867,8 @@ discard;
                                 scene.meshes.forEach(function(m) {
                                     if (m.name === "name" + dir.rnd) {
                                         m.setEnabled(true)
+					light2.includedOnlyMeshes = [m];
+					light.excludedMeshes= [m]
                                         m.parent = newplayers[dir.rnd]
                                     }
                                 })
