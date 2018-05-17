@@ -224,6 +224,12 @@
     // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.7;
 
+		    var lightmap = []
+		  var light2 = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 3, 2), scene);
+    		  light2.intensity = 1.2;
+             scene.registerBeforeRender(function(){
+		  light2.position = camera.target
+                  })
 		     // ILLUMINATE THE PLAYER--------------------><-------------------------------------
     		//  var light2 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     		//  light2.intensity = 0.7;
@@ -456,7 +462,8 @@
                     }
                     terrain = new BABYLON.DynamicTerrain("t", params, scene);
                     terrain.mesh.material = grass2;
-			light.excludedMeshes = [terrain.mesh]
+		    lightmap.push(terrain.mesh)
+		  
                     terrain.subToleranceX = 10;
                     terrain.subToleranceZ = 5;
                     terrainCreated = true;
@@ -490,6 +497,7 @@
                     };
                     var terrain = new BABYLON.DynamicTerrain("terrain", params, scene);
                     terrain.mesh.position.y = 5;
+		    lightmap.push(terrain.mesh)
                     var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
                     groundMaterial.diffuseTexture = new BABYLON.Texture("https://rawcdn.githack.com/eddicke/ert/master/assets/textures/terrainmaterial/DeadGrass_512.png", scene);
                     groundMaterial.diffuseTexture.uScale = 36;
@@ -649,6 +657,9 @@ discard;
                     GRASSLAND.mesh.scaling.y = 5
                     GRASSLAND.mesh.alwaysSelectAsActiveMesh = true
                     GRASSLAND.mesh.material = mat;
+		    lightmap.push(GRASSLAND.mesh);
+		    light2.includedOnlyMeshes = lightmap
+		    light.excludedMeshes = lightmap
                     var threshold = 0
                     scene.onAfterCameraRenderObservable.add(function() {
                         threshold += .02
