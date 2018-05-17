@@ -209,9 +209,14 @@
                 // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
                   var light = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 3, 2), scene);
     		  light.intensity = 1.2;
-                  light.range = 5000
+                  light.range = 5000;
+		  var light2 = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 3, -12), scene);
+    		  light2.intensity = 1.2;
+                  light2.range = 4000
+		    
                   scene.registerBeforeRender(function(){
                   light.position = camera.position
+		  light2.position = camera.position
                   })
 		    
 		     // ILLUMINATE THE PLAYER--------------------><-------------------------------------
