@@ -50,8 +50,8 @@ materialSphere15.backFaceCulling = false
     var v = []
 for (var k = 0; k < 1000; k++) {
     var lf = palmfrond.clone()
-    lf.position.x = Math.random() * 1400 * (k / 4)
-    lf.position.z = Math.random() * 1400 * (k / 4)
+    lf.position.x = Math.random() * 1900 * (k / 4)
+    lf.position.z = Math.random() * 1900 * (k / 4)
     v.push(lf)
 }
 
