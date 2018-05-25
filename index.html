@@ -878,7 +878,9 @@ discard;
                     cnt += 1
                     for (var id in dirs) {
                         var dir = dirs[id];
-
+				if(dir.destroy){
+				alert("player"+dir.rnd+" just left")	
+				}
                         if (dir.spawn) {
 
                             original.push(dir.rnd)
