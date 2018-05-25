@@ -53,6 +53,7 @@ io.on('connection', function(socket) {
       rnd: cnts,
       cam: {x: 0, y: 0, z: 0},
       spawn: true,
+      destroy: false,
       move: false,
       rotY: 0,
       lastpos: {x: 0, y: 0, z: 0},
@@ -76,6 +77,10 @@ io.on('connection', function(socket) {
     
   });
   
+    socket.on('disconnect', function(){
+    var dir = dirs[socket.id] || {};
+    dir.destroy = true
+  })
   socket.on('changeActions', function(data) {
     var action = actions[socket.id] || {};
     action.play = data;
