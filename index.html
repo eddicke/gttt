@@ -419,10 +419,10 @@ document.head.appendChild(s);
                 medallion = newMeshes[index];
                 for(var i = 0; i<5; i++){
                 var medallion2 = medallion.clone("medallion2");
-                medallion2.scaling.set(.5, .5, .5)
-                medallion2.skeleton = medallion.skeleton.clone("clonedSkeleton");
-                medallion2.position = new BABYLON.Vector3(Math.random()*55, Math.random()*55, Math.random()*55);
-                 //  scene.beginAnimation(medallion2.skeleton, 0, 100, true, 0.8);
+                medallion2.scaling.set(.2, .2, .2)
+	        medallion2.position.y = 36
+                medallion2.skeleton = medallion.skeleton.clone("clonedSkeleton");  
+                scene.beginAnimation(medallion2.skeleton, 0, 100, true, 0.8);
                 medallion2.setEnabled(false)
                 robots.push(medallion2)
                 }
@@ -442,9 +442,6 @@ document.head.appendChild(s);
                         if (dir.spawn && loaded) {
 			  robots[dir.rnd].name = dir.rnd+""
                           robots[dir.rnd].setEnabled(true);
-            		  scene.beginAnimation(robots[dir.rnd].skeleton, 0, 100, true, 4);
-
-                   
 				 scene.meshes.forEach(function(m) {
                                     if (m.name === dir.rnd) {
 					    m.parent = sphere
