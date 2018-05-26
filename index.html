@@ -424,7 +424,7 @@ document.head.appendChild(s);
 	    
         var robots = []
      var loaded = false
-    BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/models/", "walkeruntitled.babylon", scene, function (newMeshes, particleSystems, skeletons) {
+     BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/models/", "medallionFighter.babylon", scene, function (newMeshes, particleSystems, skeletons) {
 	   
         var medallion;
         loaded = true
@@ -437,7 +437,7 @@ document.head.appendChild(s);
 		medallion2.rotation.y = Math.PI
 	        medallion2.position.y = 36
                 medallion2.skeleton = medallion.skeleton.clone("clonedSkeleton");  
-                scene.beginAnimation(medallion2.skeleton, 0, 100, true, 0.8);
+                var walk = scene.beginAnimation(medallion2.skeleton, 312, 332, true, 1);
                 medallion2.setEnabled(false)
                 robots.push(medallion2)
                 }
