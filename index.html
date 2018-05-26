@@ -461,8 +461,8 @@ document.head.appendChild(s);
       scene.registerBeforeRender(function(){
                     sphere.rotation.y = -4.69 - camera.alpha;
                     sphere.locallyTranslate(new BABYLON.Vector3(0, 0, velocity))
-                    camera.target.x = sphere.position.x/1.4
-                    camera.target.z = sphere.position.z/1.4
+                    camera.target.x = sphere.position.x
+                    camera.target.z = sphere.position.z
       })
      //send the sphere position to other clients
        setInterval(function() {
