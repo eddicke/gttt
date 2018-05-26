@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
       destroy: false,
       move: false,
       rotY: 0,
-      lastpos: {x: 0, y: 0, z: 0},
+      lastpos: {x: 0, y: 5, z: 0},
       vel: 0
     }
     //limit the number of players available
@@ -76,11 +76,14 @@ io.on('connection', function(socket) {
  
     
   });
-  
-    socket.on('disconnect', function(){
+  //remove players that are offline
+   socket.on('disconnect', function(){
     var dir = dirs[socket.id] || {};
+
     dir.destroy = true
+
   })
+  
   socket.on('changeActions', function(data) {
     var action = actions[socket.id] || {};
     action.play = data;
