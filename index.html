@@ -433,7 +433,15 @@ document.head.appendChild(s);
         
                
     });
-
+	//send the orientation of the player to other clients
+	    var rotY = 0
+	       setInterval(function() {
+                    rotY = -4.69 - camera.alpha;
+                    socket.emit("locomotive", {
+                        rotAxis: rotY
+                    })
+                }, 1000 / 60);
+	    
       //initialize the new player and send data to other clients]
       var available = []
       socket.on('directions', function(dirs) {
@@ -443,6 +451,7 @@ document.head.appendChild(s);
                         if (dir.spawn && loaded) {
 			  robots[dir.rnd].name = dir.rnd+""
                           robots[dir.rnd].setEnabled(true);
+			  robots[dir.rnd].rotation.y = dir.rotY
 				 scene.meshes.forEach(function(m) {
                                     if (m.name === dir.rnd) {
 					    m.parent = sphere
@@ -487,7 +496,7 @@ document.head.appendChild(s);
     })
       
       scene.registerBeforeRender(function(){
-                    sphere.rotation.y = -4.69 - camera.alpha;
+                    sphere.rotation.y = rotY;
                     sphere.locallyTranslate(new BABYLON.Vector3(0, 0, velocity))
                     camera.target.x = sphere.position.x
                     camera.target.z = sphere.position.z
