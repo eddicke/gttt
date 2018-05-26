@@ -248,8 +248,10 @@ document.head.appendChild(s);
     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
     skyboxMaterial.disableLighting = true;
     skybox.material = skyboxMaterial;
-
-
+	//animate skybox
+	    scene.registerBeforeRender(function(){
+		skybox.rotation.y += .003;    
+	    })
     s.onload = function() {
 
 
