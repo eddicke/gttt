@@ -411,15 +411,16 @@ document.head.appendChild(s);
  
  	function createLoot(){
 	var loot = BABYLON.Mesh.CreateBox("player"+id, 4, scene);
-		loot.position.y = 34
+		loot.position.y = 38.5
+		loot.scaling.set(5, 5, 5)
 		loot.material = wallmat
 		return loot;
 	}
 	    
 	    for(var k = 0; k<10; k++){
 		var loots = new createLoot()
-		loots.position.x = Math.random()*30*(k/3)
-		loots.position.z = Math.random()*30*(k/3)
+		loots.position.x = Math.random()*10*(k/3)
+		loots.position.z = Math.random()*10*(k/3)
 	    }
 	    
         var robots = []
