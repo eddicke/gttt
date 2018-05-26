@@ -409,23 +409,42 @@ document.head.appendChild(s);
         return this.body
     }
         var robots = []
-        for(var i = 0; i<10; i++){
-        var robot = new createCyberMetro(1)
-        robot.setEnabled(false)
-        robots.push(robot)
+     var loaded = false
+    BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/models/", "walkeruntitled.babylon", scene, function (newMeshes, particleSystems, skeletons) {
+	   
+        var medallion;
+        loaded = true
+        for (var index = 0; index < newMeshes.length; index++) {
+            if (newMeshes[index].skeleton) {
+                medallion = newMeshes[index];
+                for(var i = 0; i<5; i++){
+                var medallion2 = medallion.clone("medallion2");
+                medallion2.scaling.set(.5, .5, .5)
+                medallion2.skeleton = medallion.skeleton.clone("clonedSkeleton");
+                medallion2.position = new BABYLON.Vector3(Math.random()*55, Math.random()*55, Math.random()*55);
+                 //  scene.beginAnimation(medallion2.skeleton, 0, 100, true, 0.8);
+                medallion2.setEnabled(false)
+                robots.push(medallion2)
+                }
+                medallion.dispose()
+         }
         }
+        
+               
+    });
 
       //initialize the new player and send data to other clients]
       var available = []
       socket.on('directions', function(dirs) {
               for (var id in dirs) {
                         var dir = dirs[id];
-		      robots[dir.rnd].name = dir.rnd+""
-                        //  robots[dir.rnd].position.x = dir.lastpos.x
-                         // robots[dir.rnd].position.z = dir.lastpos.z
-                        if (dir.spawn) {
+		      
+                        if (dir.spawn && loaded) {
+			  robots[dir.rnd].name = dir.rnd+""
                           robots[dir.rnd].setEnabled(true);
-				
+            		  scene.beginAnimation(robots[dir.rnd].skeleton, 0, 100, true, 4);
+
+                   
 				 scene.meshes.forEach(function(m) {
                                     if (m.name === dir.rnd) {
 					    m.parent = sphere
