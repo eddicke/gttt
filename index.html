@@ -408,6 +408,20 @@ document.head.appendChild(s);
         this.thruster.setParent(this.body)
         return this.body
     }
+ 
+ 	function createLoot(){
+	var loot = BABYLON.Mesh.CreateBox("player"+id, 4, scene);
+		loot.position.y = 34
+		loot.material = wallmat
+		return loot;
+	}
+	    
+	    for(var k = 0; k<10; k++){
+		var loots = new createLoot()
+		loots.position.x = Math.random()*30*(k/3)
+		loots.position.z = Math.random()*30*(k/3)
+	    }
+	    
         var robots = []
      var loaded = false
     BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/eddicke/chat-example/master/assets/models/", "walkeruntitled.babylon", scene, function (newMeshes, particleSystems, skeletons) {
