@@ -418,10 +418,19 @@ document.head.appendChild(s);
       socket.on('directions', function(dirs) {
               for (var id in dirs) {
                         var dir = dirs[id];
-                        robots[dir.rnd].position.x = dir.lastpos.x
-                          robots[dir.rnd].position.z = dir.lastpos.z
+		      robots[dir.rnd].name = dir.rnd+""
+                        //  robots[dir.rnd].position.x = dir.lastpos.x
+                         // robots[dir.rnd].position.z = dir.lastpos.z
                         if (dir.spawn) {
                           robots[dir.rnd].setEnabled(true);
+				
+				 scene.meshes.forEach(function(m) {
+                                    if (m.name === dir.rnd) {
+					    m.parent = sphere
+				    }
+				 })
+				
+				//remove players that are offline or defeated
                           if(dir.destroy){
 				                 robots[dir.rnd].setEnabled(false);
                             available.push(robots[dir.rnd])
