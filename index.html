@@ -410,7 +410,7 @@ document.head.appendChild(s);
     }
  
  	function createLoot(){
-	var loot = BABYLON.Mesh.CreateBox("player"+id, 4, scene);
+	var loot = BABYLON.Mesh.CreateBox("loots", 4, scene);
 		loot.position.y = 38.5
 		loot.scaling.set(5, 5, 5)
 		loot.material = wallmat
