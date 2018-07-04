@@ -529,15 +529,15 @@ document.head.appendChild(s);
             });
 
             //CHATBOX---------------><-----------------------------------------------
-
+		var buffer = new Float64Array(50)
             $('form').submit(function() {
-                socket.emit('chat message', $('#m').val());
+                socket.emit('chat message', {mm: $('#m').val(), arr: buffer});
                 $('#m').val('');
                 return false;
             });
             socket.on('chat message', function(msg) {
-                console.log(msg);
-                $('#messages').append($('<li>').text(msg));
+                console.log(msg.arr);
+                $('#messages').append($('<li>').text(msg.mm));
                 window.scrollTo(0, document.body.scrollHeight);
             });
         });
